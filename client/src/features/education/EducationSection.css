@@ -1,0 +1,81 @@
+/* ——— Education Section ——— */
+
+.education__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  max-width: 800px;
+}
+
+@media (min-width: 768px) {
+  .education__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.education__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.education__card-header > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.education__years {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-accent-primary);
+}
+
+.education__institution {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-1);
+}
+
+.education__degree {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.education__gpa {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent-primary);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-accent);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-4);
+}
+
+.education__highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.education__highlight {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.education__highlight::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-primary);
+  font-size: var(--text-sm);
+}

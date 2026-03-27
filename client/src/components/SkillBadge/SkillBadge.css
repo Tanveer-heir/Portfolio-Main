@@ -1,0 +1,48 @@
+/* ——— Skill Badge ——— */
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  transition: all var(--duration-fast) var(--ease-out-quart);
+}
+
+.skill-badge--default {
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.skill-badge--accent {
+  background: var(--color-accent-muted);
+  color: var(--color-accent-primary);
+  border: 1px solid var(--color-border-accent);
+}
+
+.skill-badge--warm {
+  background: var(--color-warm-muted);
+  color: var(--color-warm);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+}
+
+.skill-badge:hover {
+  transform: translateY(-1px);
+}
+
+/* Proficiency dots */
+.skill-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+}
+
+.skill-badge__dot--beginner    { background: var(--color-text-tertiary); }
+.skill-badge__dot--intermediate { background: var(--color-warning); }
+.skill-badge__dot--advanced     { background: var(--color-accent-primary); }
+.skill-badge__dot--expert       { background: var(--color-success); }

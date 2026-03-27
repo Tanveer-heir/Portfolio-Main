@@ -1,0 +1,109 @@
+/* ——— AdminGuard ——— */
+
+.admin-guard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: var(--space-10);
+}
+
+.admin-guard__card {
+  position: relative;
+  max-width: 440px;
+  width: 100%;
+  padding: var(--space-10) var(--space-8);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  overflow: hidden;
+}
+
+.admin-guard__scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-violet), transparent);
+  opacity: 0.5;
+  animation: scanLine 3s linear infinite;
+}
+
+.admin-guard__icon {
+  font-size: var(--text-5xl);
+  display: block;
+  margin-bottom: var(--space-4);
+  color: var(--color-violet);
+  text-shadow: 0 0 30px var(--color-violet-glow);
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+.admin-guard__title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.admin-guard__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.admin-guard__terminal-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.admin-guard__prompt {
+  color: var(--color-violet);
+  font-weight: var(--weight-bold);
+}
+
+.admin-guard__cmd {
+  color: var(--color-text-secondary);
+}
+
+.admin-guard__cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--color-violet);
+  animation: cursorBlink 1s step-end infinite;
+  border-radius: 1px;
+}
+
+.admin-guard__btn {
+  width: 100%;
+}
+
+/* Loader */
+.admin-guard__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 40vh;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+.admin-guard__spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--color-border-default);
+  border-top-color: var(--color-violet);
+  border-radius: var(--radius-full);
+  animation: btn-spin 0.8s linear infinite;
+}
