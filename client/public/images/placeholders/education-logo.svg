@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">Education logo placeholder</title>
+  <desc id="desc">Replace with institution logo.</desc>
+  <rect width="320" height="320" rx="24" fill="#101829"/>
+  <path d="M55 135l105-45 105 45-105 45z" fill="none" stroke="#00e5ff" stroke-width="6"/>
+  <path d="M105 164v42c0 21 29 36 55 36s55-15 55-36v-42" fill="none" stroke="#7cf6ff" stroke-width="6"/>
+  <text x="160" y="287" text-anchor="middle" fill="#8c95a8" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="2">LOGO</text>
+</svg>

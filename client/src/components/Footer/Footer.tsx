@@ -78,9 +78,6 @@ export default function Footer() {
                   className="footer__brand-logo-image"
                   loading="lazy"
                 />
-                <figcaption className="footer__brand-logo-caption">
-                  Replace with your logo at /public/images/plaksha.png
-                </figcaption>
               </figure>
 
               <div className="footer__brand-pills" aria-label="Core domains">
