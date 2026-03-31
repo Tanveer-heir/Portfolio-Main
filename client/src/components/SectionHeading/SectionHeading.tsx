@@ -1,10 +1,11 @@
-import './SectionHeading.css';
+import "./SectionHeading.css";
+import { DecryptText } from "../effects";
 
 interface SectionHeadingProps {
-  label: string;            /* Small overline text e.g. "01" or "Projects" */
+  label: string; /* Small overline text e.g. "01" or "Projects" */
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center';
+  align?: "left" | "center";
   className?: string;
 }
 
@@ -12,13 +13,17 @@ export default function SectionHeading({
   label,
   title,
   subtitle,
-  align = 'left',
-  className = '',
+  align = "left",
+  className = "",
 }: SectionHeadingProps) {
   return (
-    <header className={`section-heading section-heading--${align} ${className}`}>
+    <header
+      className={`section-heading section-heading--${align} ${className}`}
+    >
       <span className="section-heading__label">{label}</span>
-      <h2 className="section-heading__title">{title}</h2>
+      <h2 className="section-heading__title">
+        <DecryptText text={title} triggerOnView />
+      </h2>
       {subtitle && <p className="section-heading__subtitle">{subtitle}</p>}
     </header>
   );

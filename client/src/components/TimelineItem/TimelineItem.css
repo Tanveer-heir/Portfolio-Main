@@ -31,6 +31,7 @@
   border: 2px solid var(--color-border-strong);
   flex-shrink: 0;
   margin-top: 6px;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
   transition: all var(--duration-normal) var(--ease-out-expo);
 }
 

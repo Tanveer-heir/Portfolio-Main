@@ -1,0 +1,32 @@
+.mouse-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: -2;
+  mix-blend-mode: screen;
+  filter: blur(40px);
+  background: radial-gradient(
+    circle,
+    rgba(0, 229, 255, 0.26) 0%,
+    rgba(8, 145, 178, 0.09) 34%,
+    rgba(11, 13, 20, 0) 70%
+  );
+}
+
+@media (max-width: 768px) {
+  .mouse-glow {
+    width: 22rem;
+    height: 22rem;
+    opacity: 0.65;
+  }
+}
+
+@media (pointer: coarse) {
+  .mouse-glow {
+    display: none;
+  }
+}

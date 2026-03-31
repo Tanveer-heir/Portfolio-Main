@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-import { SectionHeading } from '../../components/SectionHeading';
-import { Card, CardHeader, CardBody, CardFooter } from '../../components/Card';
-import { SkillBadge } from '../../components/SkillBadge';
-import { Button } from '../../components/Button';
-import { research, sectionMeta } from '../../data/portfolio-data';
-import { staggerContainer, staggerItem } from '../../utils/motion';
-import './ResearchSection.css';
+import { motion } from "framer-motion";
+import { SectionHeading } from "../../components/SectionHeading";
+import { Card, CardHeader, CardBody, CardFooter } from "../../components/Card";
+import { SkillBadge } from "../../components/SkillBadge";
+import { Button } from "../../components/Button";
+import { research, sectionMeta } from "../../data/portfolio-data";
+import { staggerContainer, staggerItem } from "../../utils/motion";
+import "./ResearchSection.css";
 
 export default function ResearchSection() {
   const meta = sectionMeta.research;
@@ -28,16 +28,20 @@ export default function ResearchSection() {
         >
           {research.map((paper) => (
             <motion.div key={paper.id} variants={staggerItem}>
-              <Card variant="outlined" hoverEffect accentBorder>
+              <Card variant="outlined" hoverEffect accentBorder spotlightBorder>
                 <CardHeader>
                   <div className="research__header-row">
-                    <span className="research__year">{paper.publicationDate}</span>
+                    <span className="research__year">
+                      {paper.publicationDate}
+                    </span>
                     {paper.status && (
                       <span className="research__status">{paper.status}</span>
                     )}
                   </div>
                   <h3 className="research__title">{paper.title}</h3>
-                  <p className="research__authors">{paper.authors.join(', ')}</p>
+                  <p className="research__authors">
+                    {paper.authors.join(", ")}
+                  </p>
                 </CardHeader>
                 <CardBody>
                   <p className="research__abstract">{paper.abstract}</p>
@@ -48,8 +52,12 @@ export default function ResearchSection() {
                   </div>
                 </CardBody>
                 <CardFooter>
-                  <Button variant="outline" size="sm">Read Paper</Button>
-                  <Button variant="ghost" size="sm">Download PDF</Button>
+                  <Button variant="outline" size="sm">
+                    Read Paper
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    Download PDF
+                  </Button>
                 </CardFooter>
               </Card>
             </motion.div>

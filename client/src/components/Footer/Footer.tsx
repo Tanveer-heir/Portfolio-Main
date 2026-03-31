@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
-import { NAV_ITEMS, SOCIAL_LINKS } from '../../config/navigation';
-import './Footer.css';
+import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { NAV_ITEMS, SOCIAL_LINKS } from "../../config/navigation";
+import { FooterSystemLog } from "../effects";
+import "./Footer.css";
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -17,21 +18,24 @@ const staggerItem: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    transition: {
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   },
 };
 
 const magneticHover = {
   whileHover: { scale: 1.15, y: -3 },
   whileTap: { scale: 0.92 },
-  transition: { type: 'spring' as const, stiffness: 400, damping: 15 },
+  transition: { type: "spring" as const, stiffness: 400, damping: 15 },
 };
 
 const SOCIAL_ICONS: Record<string, string> = {
-  GitHub: '⟨/⟩',
-  LinkedIn: 'in',
-  Twitter: '𝕏',
-  Email: '✉',
+  GitHub: "⟨/⟩",
+  LinkedIn: "in",
+  Twitter: "𝕏",
+  Email: "✉",
 };
 
 export default function Footer() {
@@ -78,7 +82,10 @@ export default function Footer() {
                   variants={shouldReduceMotion ? undefined : staggerItem}
                 >
                   <Link to={item.href} className="footer__nav-link">
-                    <span className="footer__nav-link-indicator" aria-hidden="true" />
+                    <span
+                      className="footer__nav-link-indicator"
+                      aria-hidden="true"
+                    />
                     {item.label}
                   </Link>
                 </motion.li>
@@ -106,6 +113,9 @@ export default function Footer() {
                   <span className="footer__social-label">{link.platform}</span>
                 </motion.a>
               ))}
+            </div>
+            <div className="footer__log-wrap">
+              <FooterSystemLog />
             </div>
           </div>
         </div>

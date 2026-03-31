@@ -1,0 +1,51 @@
+.boot-sequence {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(8, 10, 18, 0.88);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.boot-sequence__bar {
+  width: min(680px, 82vw);
+  height: 3px;
+  background: rgba(124, 246, 255, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.boot-sequence__fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2ad4de, #7cf6ff);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+}
+
+.boot-sequence__label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: rgba(222, 246, 255, 0.8);
+}
+
+.boot-sequence__wireframes {
+  width: min(820px, 88vw);
+  display: grid;
+  gap: 10px;
+}
+
+.boot-sequence__wire {
+  height: 1px;
+  transform-origin: left;
+  background: linear-gradient(
+    90deg,
+    rgba(124, 246, 255, 0),
+    rgba(124, 246, 255, 0.6),
+    rgba(124, 246, 255, 0)
+  );
+}

@@ -1,7 +1,56 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { NAV_ITEMS } from '../../config/navigation';
-import './Navbar.css';
+import { useState, useEffect, type MouseEvent as ReactMouseEvent } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { NAV_ITEMS } from "../../config/navigation";
+import "./Navbar.css";
+
+function MagneticLink({
+  to,
+  id,
+  className,
+  children,
+}: {
+  to: string;
+  id?: string;
+  className: string;
+  children: string;
+}) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 260, damping: 22, mass: 0.4 });
+  const springY = useSpring(y, { stiffness: 260, damping: 22, mass: 0.4 });
+
+  const handleMove = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left - rect.width / 2;
+    const offsetY = event.clientY - rect.top - rect.height / 2;
+
+    x.set(offsetX * 0.2);
+    y.set(offsetY * 0.2);
+  };
+
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      className="navbar__link-wrap"
+      style={{ x: springX, y: springY }}
+    >
+      <Link
+        to={to}
+        id={id}
+        className={className}
+        onMouseMove={handleMove}
+        onMouseLeave={reset}
+      >
+        {children}
+      </Link>
+    </motion.div>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,8 +59,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   /* Close mobile nav on route change */
@@ -21,7 +70,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}
+      className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -36,37 +85,41 @@ export default function Navbar() {
         <ul className="navbar__links" role="list">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
-              <Link
+              <MagneticLink
                 to={item.href}
                 id={item.id}
-                className={`navbar__link ${location.pathname === item.href ? 'navbar__link--active' : ''}`}
+                className={`navbar__link ${location.pathname === item.href ? "navbar__link--active" : ""}`}
               >
                 {item.label}
-              </Link>
+              </MagneticLink>
             </li>
           ))}
         </ul>
 
         {/* Mobile hamburger */}
         <button
-          className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
+          className={`navbar__hamburger ${mobileOpen ? "navbar__hamburger--open" : ""}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-label="Toggle navigation menu"
           id="nav-hamburger"
         >
-          <span /><span /><span />
+          <span />
+          <span />
+          <span />
         </button>
       </div>
 
       {/* Mobile drawer */}
-      <div className={`navbar__mobile ${mobileOpen ? 'navbar__mobile--open' : ''}`}>
+      <div
+        className={`navbar__mobile ${mobileOpen ? "navbar__mobile--open" : ""}`}
+      >
         <ul className="navbar__mobile-links" role="list">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
               <Link
                 to={item.href}
-                className={`navbar__mobile-link ${location.pathname === item.href ? 'navbar__mobile-link--active' : ''}`}
+                className={`navbar__mobile-link ${location.pathname === item.href ? "navbar__mobile-link--active" : ""}`}
               >
                 {item.label}
               </Link>

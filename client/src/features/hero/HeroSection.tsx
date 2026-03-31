@@ -1,27 +1,34 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Button } from '../../components/Button';
-import { hero } from '../../data/portfolio-data';
-import './HeroSection.css';
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Button } from "../../components/Button";
+import { DecryptText } from "../../components/effects";
+import { hero } from "../../data/portfolio-data";
+import "./HeroSection.css";
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const meshY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const meshOpacity = useTransform(scrollYProgress, [0, 0.7], [0.34, 0.1]);
 
   return (
     <section ref={sectionRef} className="hero" id="hero-section">
       {/* Animated background grid */}
-      <div className="hero__grid" aria-hidden="true">
+      <motion.div
+        className="hero__grid"
+        style={{ y: meshY, opacity: meshOpacity }}
+        aria-hidden="true"
+      >
         {Array.from({ length: 64 }).map((_, i) => (
           <span key={i} className="hero__grid-dot" />
         ))}
-      </div>
+      </motion.div>
 
       {/* Radial glow */}
       <div className="hero__glow" aria-hidden="true" />
@@ -42,9 +49,13 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          {hero.titleLines[0]}
+          <DecryptText
+            text={`${hero.titleLines[0]} ${hero.titleAccent}`}
+            className="hero__title-decrypt"
+            triggerOnView
+          />
           <br />
-          <span className="hero__title-accent">{hero.titleAccent}</span>, one
+          one
           <br />
           {hero.titleLines[2]}
         </motion.h1>
@@ -64,8 +75,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          <Button variant="solid" size="lg">{hero.ctaPrimary.label}</Button>
-          <Button variant="outline" size="lg">{hero.ctaSecondary.label}</Button>
+          <Button variant="solid" size="lg">
+            {hero.ctaPrimary.label}
+          </Button>
+          <Button variant="outline" size="lg">
+            {hero.ctaSecondary.label}
+          </Button>
         </motion.div>
 
         {/* Scroll indicator */}

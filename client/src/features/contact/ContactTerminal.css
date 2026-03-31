@@ -25,7 +25,12 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent-primary),
+    transparent
+  );
   opacity: 0.4;
   animation: scanLine 4s linear infinite;
 }
@@ -148,9 +153,15 @@
   height: 10px;
   border-radius: var(--radius-full);
 }
-.chat__dot--red    { background: #ff5f57; }
-.chat__dot--yellow { background: #ffbd2e; }
-.chat__dot--green  { background: #28c940; }
+.chat__dot--red {
+  background: #ff5f57;
+}
+.chat__dot--yellow {
+  background: #ffbd2e;
+}
+.chat__dot--green {
+  background: #28c940;
+}
 
 .chat__header-title {
   font-family: var(--font-mono);
@@ -287,6 +298,36 @@
   gap: var(--space-4);
 }
 
+.chat__skeleton-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.chat__skeleton-row {
+  height: 58px;
+  max-width: 80%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    110deg,
+    rgba(146, 165, 200, 0.08) 8%,
+    rgba(146, 165, 200, 0.22) 18%,
+    rgba(146, 165, 200, 0.08) 33%
+  );
+  background-size: 230% 100%;
+  animation: chatShimmer 1.2s linear infinite;
+}
+
+.chat__skeleton-row:nth-child(even) {
+  margin-left: auto;
+  max-width: 68%;
+}
+
+@keyframes chatShimmer {
+  to {
+    background-position-x: -230%;
+  }
+}
+
 /* System message */
 .chat__system-msg {
   display: flex;
@@ -404,7 +445,9 @@
   color: var(--color-text-tertiary);
   cursor: pointer;
   opacity: 0;
-  transition: opacity var(--duration-fast) var(--ease-out-quart), color var(--duration-fast);
+  transition:
+    opacity var(--duration-fast) var(--ease-out-quart),
+    color var(--duration-fast);
 }
 
 .chat__bubble:hover .chat__bubble-reply-btn {
@@ -443,7 +486,9 @@
   color: var(--color-text-tertiary);
   cursor: pointer;
   opacity: 0;
-  transition: opacity var(--duration-fast), color var(--duration-fast);
+  transition:
+    opacity var(--duration-fast),
+    color var(--duration-fast);
   padding: 2px 4px;
   border-radius: var(--radius-sm);
 }

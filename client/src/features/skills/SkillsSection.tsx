@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Card, CardBody } from '../../components/Card';
 import { SkillBadge } from '../../components/SkillBadge';
+import { SpotlightCard } from '../../components/effects';
 import { skills, sectionMeta } from '../../data/portfolio-data';
 import { staggerContainer, staggerItem } from '../../utils/motion';
 import './SkillsSection.css';
@@ -25,26 +26,32 @@ export default function SkillsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          {skills.map((category) => (
-            <motion.div key={category.name} variants={staggerItem}>
-              <Card variant="glass" hoverEffect className="skills-section__category-card">
-                <CardBody>
-                  <div className="skills-section__category-header">
-                    <span className="skills-section__category-icon" aria-hidden="true">{category.icon}</span>
-                    <h3 className="skills-section__category-name">{category.name}</h3>
-                  </div>
-                  <div className="skills-section__badges">
-                    {category.skills.map((skill) => (
-                      <SkillBadge
-                        key={skill.name}
-                        name={skill.name}
-                        level={skill.level}
-                        variant={skill.category === 'hardware' ? 'warm' : 'accent'}
-                      />
-                    ))}
-                  </div>
-                </CardBody>
-              </Card>
+          {skills.map((category, index) => (
+            <motion.div
+              key={category.name}
+              variants={staggerItem}
+              className={`skills-section__tile skills-section__tile--${(index % 6) + 1}`}
+            >
+              <SpotlightCard>
+                <Card variant="glass" hoverEffect className="skills-section__category-card">
+                  <CardBody>
+                    <div className="skills-section__category-header">
+                      <span className="skills-section__category-icon" aria-hidden="true">{category.icon}</span>
+                      <h3 className="skills-section__category-name">{category.name}</h3>
+                    </div>
+                    <div className="skills-section__badges">
+                      {category.skills.map((skill) => (
+                        <SkillBadge
+                          key={skill.name}
+                          name={skill.name}
+                          level={skill.level}
+                          variant={skill.category === 'hardware' ? 'warm' : 'accent'}
+                        />
+                      ))}
+                    </div>
+                  </CardBody>
+                </Card>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>

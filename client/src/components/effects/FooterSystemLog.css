@@ -1,0 +1,38 @@
+.footer-system-log {
+  max-width: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(11, 20, 30, 0.45);
+  border: 1px solid rgba(124, 246, 255, 0.14);
+}
+
+.footer-system-log__head {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.8rem;
+  background: rgba(0, 229, 255, 0.08);
+  color: rgba(175, 238, 255, 0.85);
+  border-bottom: 1px solid rgba(124, 246, 255, 0.12);
+}
+
+.footer-system-log__viewport {
+  max-height: 132px;
+  overflow-y: auto;
+  padding: 0.75rem 0.8rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.footer-system-log__line {
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  gap: 0.45rem;
+}
+
+.footer-system-log__prompt {
+  color: #7cf6ff;
+}

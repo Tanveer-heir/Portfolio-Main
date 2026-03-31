@@ -1,12 +1,16 @@
 /* ——— Main Layout ——— */
 
 .main-layout {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
 .main-layout__content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   padding-top: 72px; /* Navbar height offset */
 }

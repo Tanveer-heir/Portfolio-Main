@@ -1,29 +1,37 @@
-import { Card, CardHeader, CardBody, CardFooter } from '../Card';
-import { SkillBadge } from '../SkillBadge';
-import { Button } from '../Button';
-import type { Project } from '../../types';
-import './ProjectCard.css';
+import { Card, CardHeader, CardBody, CardFooter } from "../Card";
+import { SkillBadge } from "../SkillBadge";
+import { Button } from "../Button";
+import type { Project } from "../../types";
+import "./ProjectCard.css";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const categoryIcons: Record<Project['category'], string> = {
-    software: '⌘',
-    hardware: '⚡',
-    research: '◈',
-    design: '◐',
+  const categoryIcons: Record<Project["category"], string> = {
+    software: "⌘",
+    hardware: "⚡",
+    research: "◈",
+    design: "◐",
   };
 
   return (
-    <Card variant="outlined" hoverEffect accentBorder={project.featured} className="project-card">
+    <Card
+      variant="outlined"
+      hoverEffect
+      accentBorder={project.featured}
+      spotlightBorder
+      className="project-card"
+    >
       {/* Image placeholder area */}
       <div className="project-card__image">
         <span className="project-card__category-icon" aria-hidden="true">
           {categoryIcons[project.category]}
         </span>
-        {project.featured && <span className="project-card__featured-badge">Featured</span>}
+        {project.featured && (
+          <span className="project-card__featured-badge">Featured</span>
+        )}
       </div>
 
       <CardHeader>
