@@ -1,56 +1,65 @@
 /* ——— Hackathons Section ——— */
 
-.hackathons__timeline {
+.hackathons__bento {
   position: relative;
   display: grid;
-  gap: var(--space-6);
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: var(--space-5);
 }
 
-.hackathons__trace {
+@media (min-width: 768px) {
+  .hackathons__bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: minmax(170px, auto);
+  }
+}
+
+.hackathons__bento-item {
+  position: relative;
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .hackathons__bento-item--1,
+  .hackathons__bento-item--4 {
+    grid-column: span 7;
+  }
+
+  .hackathons__bento-item--2,
+  .hackathons__bento-item--3,
+  .hackathons__bento-item--5,
+  .hackathons__bento-item--6 {
+    grid-column: span 5;
+  }
+
+  .hackathons__bento-item--2,
+  .hackathons__bento-item--5 {
+    grid-row: span 2;
+  }
+}
+
+.hackathons__node {
   position: absolute;
-  top: 8px;
-  bottom: 10px;
-  left: 11px;
-  width: 2px;
-  border-radius: var(--radius-full);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 229, 255, 0.12),
-    rgba(0, 229, 255, 0.04)
-  );
-  overflow: hidden;
-}
-
-.hackathons__trace-fill {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-origin: top;
-  background: linear-gradient(
-    180deg,
-    #6ef1ff 0%,
-    #00e5ff 65%,
-    rgba(0, 229, 255, 0.3) 100%
-  );
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.42);
-}
-
-.hackathons__timeline-item {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  align-items: flex-start;
-  gap: var(--space-4);
-}
-
-.hackathons__dot {
+  top: 18px;
+  left: 16px;
   width: 10px;
   height: 10px;
-  margin-top: 8px;
-  margin-left: 7px;
   border-radius: var(--radius-full);
   background: #00e5ff;
   border: 2px solid #88f8ff;
   box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+  z-index: 2;
+}
+
+.hackathons__spotlight,
+.hackathons__card {
+  height: 100%;
+}
+
+.hackathons__card {
+  background: rgba(18, 28, 40, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px rgba(3, 8, 18, 0.42);
 }
 
 .hackathons__card-meta {

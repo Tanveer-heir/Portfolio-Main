@@ -25,7 +25,7 @@
 
 /* ——— Magnetic hover glow ring ——— */
 .btn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: inherit;
@@ -71,10 +71,64 @@
   background: var(--color-accent-primary);
   color: var(--color-text-inverse);
 }
+
+.btn--solid::after,
+.btn--outline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(222, 253, 255, 0.12) 0px,
+    rgba(222, 253, 255, 0.12) 1px,
+    rgba(0, 0, 0, 0) 3px,
+    rgba(0, 0, 0, 0) 6px
+  );
+  transition: opacity var(--duration-fast) var(--ease-out-quart);
+}
+
 .btn--solid:hover:not(:disabled) {
   background: var(--color-accent-hover);
   box-shadow: var(--shadow-glow);
   transform: translateY(-2px) scale(1.02);
+}
+
+.btn--solid:hover:not(:disabled)::after,
+.btn--outline:hover:not(:disabled)::after {
+  opacity: 0.35;
+}
+
+.btn--solid .btn__label,
+.btn--outline .btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.btn--solid .btn__label::after,
+.btn--outline .btn__label::after {
+  content: "";
+  position: absolute;
+  left: -24%;
+  right: -24%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(124, 246, 255, 0),
+    rgba(124, 246, 255, 0.9),
+    rgba(124, 246, 255, 0)
+  );
+  transform: scaleX(0) translateY(-50%);
+  transform-origin: left;
+  opacity: 0;
+}
+
+.btn--solid:hover:not(:disabled) .btn__label::after,
+.btn--outline:hover:not(:disabled) .btn__label::after {
+  opacity: 1;
+  animation: buttonLaser 550ms linear;
 }
 .btn--solid:active:not(:disabled) {
   transform: translateY(0) scale(0.98);
@@ -130,7 +184,9 @@
 }
 
 @keyframes btn-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn__icon {
@@ -158,4 +214,19 @@
 .btn--google .btn__google-icon {
   width: 18px;
   height: 18px;
+}
+
+@keyframes buttonLaser {
+  0% {
+    transform: scaleX(0) translateY(-50%);
+  }
+
+  45% {
+    transform: scaleX(1) translateY(-50%);
+  }
+
+  100% {
+    transform: scaleX(0) translateY(-50%);
+    transform-origin: right;
+  }
 }
