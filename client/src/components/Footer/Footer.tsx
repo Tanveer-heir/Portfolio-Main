@@ -38,6 +38,12 @@ const SOCIAL_ICONS: Record<string, string> = {
   Email: "✉",
 };
 
+const BRAND_PILLS = [
+  { icon: "⌘", label: "Software" },
+  { icon: "⚡", label: "Hardware" },
+  { icon: "◈", label: "Geospatial" },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
   const shouldReduceMotion = useReducedMotion();
@@ -63,6 +69,38 @@ export default function Footer() {
             <p className="footer__tagline-sub">
               Bridging software with the physical world.
             </p>
+
+            <div className="footer__brand-meta">
+              <figure className="footer__brand-logo-slot">
+                <img
+                  src="/images/plaksha.png"
+                  alt="University or organization logo"
+                  className="footer__brand-logo-image"
+                  loading="lazy"
+                />
+                <figcaption className="footer__brand-logo-caption">
+                  Replace with your logo at /public/images/plaksha.png
+                </figcaption>
+              </figure>
+
+              <div className="footer__brand-pills" aria-label="Core domains">
+                {BRAND_PILLS.map((pill) => (
+                  <span key={pill.label} className="footer__brand-pill">
+                    <span
+                      className="footer__brand-pill-icon"
+                      aria-hidden="true"
+                    >
+                      {pill.icon}
+                    </span>
+                    <span>{pill.label}</span>
+                  </span>
+                ))}
+              </div>
+
+              <blockquote className="footer__brand-quote">
+                Talk is cheap. Show me the code.
+              </blockquote>
+            </div>
           </div>
 
           {/* Nav links — staggered reveal */}

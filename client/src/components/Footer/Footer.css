@@ -134,6 +134,74 @@
   letter-spacing: var(--tracking-wide);
 }
 
+.footer__brand-meta {
+  margin-top: var(--space-5);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.footer__brand-logo-slot {
+  margin: 0;
+  max-width: 280px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 229, 255, 0.16);
+  background: rgba(12, 21, 32, 0.55);
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(0, 8, 18, 0.35);
+}
+
+.footer__brand-logo-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer__brand-logo-caption {
+  padding: 0.5rem 0.65rem;
+  border-top: 1px solid rgba(0, 229, 255, 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+}
+
+.footer__brand-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.footer__brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.16);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.footer__brand-pill-icon {
+  color: var(--color-accent-primary);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.28);
+}
+
+.footer__brand-quote {
+  margin: 0;
+  padding-left: var(--space-3);
+  border-left: 2px solid rgba(0, 229, 255, 0.2);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  max-width: 34ch;
+}
+
 /* ——— Nav Section ——— */
 
 .footer__nav-heading {
