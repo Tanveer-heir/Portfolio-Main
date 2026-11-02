@@ -1,0 +1,24 @@
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.not-found__code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-accent-primary);
+}
+
+.not-found__title {
+  margin-top: var(--space-4);
+  font-size: var(--text-5xl);
+}
+
+.not-found__text {
+  margin-block: var(--space-4) var(--space-8);
+  color: var(--color-text-secondary);
+}

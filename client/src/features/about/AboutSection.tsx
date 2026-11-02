@@ -1,12 +1,19 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Card, CardBody } from '../../components/Card';
-import { about, sectionMeta } from '../../data/portfolio-data';
+import { about, sectionMeta, site } from '../../config/content';
+import { assetUrl } from '../../utils/assets';
 import { staggerContainer, staggerItem, fadeInLeft, fadeInUp } from '../../utils/motion';
 import './AboutSection.css';
 
+// Turns **words** from the data file into highlighted text
+function highlight(text: string) {
+  return text.split('**').map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
+}
+
 export default function AboutSection() {
   const meta = sectionMeta.about;
+  const photo = assetUrl(about.photo);
 
   return (
     <section className="about section" id="about-section">
@@ -25,8 +32,12 @@ export default function AboutSection() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="about__portrait-frame">
-              <div className="about__portrait-placeholder" aria-label="Profile portrait">
-                <span className="about__portrait-initials">{about.initials}</span>
+              <div className="about__portrait-placeholder">
+                {photo ? (
+                  <img src={photo} alt={site.name} className="about__portrait-image" />
+                ) : (
+                  <span className="about__portrait-initials">{site.initials}</span>
+                )}
               </div>
               <div className="about__portrait-accent" aria-hidden="true" />
             </div>
@@ -38,10 +49,7 @@ export default function AboutSection() {
             {...fadeInUp}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p
-              className="about__lead"
-              dangerouslySetInnerHTML={{ __html: about.lead }}
-            />
+            <p className="about__lead">{highlight(about.lead)}</p>
             {about.body.map((paragraph, i) => (
               <p key={i} className="about__body">{paragraph}</p>
             ))}

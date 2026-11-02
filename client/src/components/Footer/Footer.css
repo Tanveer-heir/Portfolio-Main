@@ -385,7 +385,6 @@
   font-family: var(--font-mono);
   font-size: 0.65rem;
   color: var(--color-text-tertiary);
-  opacity: 0.5;
   letter-spacing: var(--tracking-wider);
 }
 
@@ -400,7 +399,7 @@
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   color: var(--color-text-tertiary);
-  opacity: 0.15;
+  opacity: 0.6;
   text-decoration: none;
   transition: all var(--duration-normal) var(--ease-out-quart);
 }

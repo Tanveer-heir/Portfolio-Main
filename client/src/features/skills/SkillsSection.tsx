@@ -3,7 +3,7 @@ import { SectionHeading } from "../../components/SectionHeading";
 import { Card, CardBody } from "../../components/Card";
 import { SkillBadge } from "../../components/SkillBadge";
 import { SpotlightCard } from "../../components/effects";
-import { skills, sectionMeta } from "../../data/portfolio-data";
+import { skills, sectionMeta } from "../../config/content";
 import { staggerContainer, staggerItem } from "../../utils/motion";
 import "./SkillsSection.css";
 
@@ -56,9 +56,7 @@ export default function SkillsSection() {
                           key={skill.name}
                           name={skill.name}
                           level={skill.level}
-                          variant={
-                            skill.category === "hardware" ? "warm" : "accent"
-                          }
+                          variant={skill.warm ? "warm" : "accent"}
                         />
                       ))}
                     </div>

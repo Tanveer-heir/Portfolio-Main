@@ -4,7 +4,8 @@ import { Card, CardHeader, CardBody, CardFooter } from "../../components/Card";
 import { SkillBadge } from "../../components/SkillBadge";
 import { Button } from "../../components/Button";
 import { SpotlightCard } from "../../components/effects";
-import { research, sectionMeta } from "../../data/portfolio-data";
+import { research, sectionMeta } from "../../config/content";
+import { assetUrl } from "../../utils/assets";
 import { staggerContainer, staggerItem } from "../../utils/motion";
 import "./ResearchSection.css";
 
@@ -39,7 +40,7 @@ export default function ResearchSection() {
                   <CardHeader>
                     <div className="research__header-row">
                       <span className="research__year">
-                        {paper.publicationDate}
+                        {paper.year}
                       </span>
                       {paper.status && (
                         <span className="research__status">{paper.status}</span>
@@ -58,14 +59,24 @@ export default function ResearchSection() {
                       ))}
                     </div>
                   </CardBody>
-                  <CardFooter>
-                    <Button variant="outline" size="sm">
-                      Read Paper
-                    </Button>
-                    <Button variant="ghost" size="sm">
-                      Download PDF
-                    </Button>
-                  </CardFooter>
+                  {(paper.url || paper.pdf) && (
+                    <CardFooter>
+                      {paper.url && (
+                        <Button variant="outline" size="sm" href={paper.url}>
+                          Read Paper
+                        </Button>
+                      )}
+                      {paper.pdf && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          href={assetUrl(paper.pdf)}
+                        >
+                          Download PDF
+                        </Button>
+                      )}
+                    </CardFooter>
+                  )}
                 </Card>
               </SpotlightCard>
             </motion.div>

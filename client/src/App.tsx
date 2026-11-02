@@ -1,5 +1,5 @@
-import { AnimatePresence } from "framer-motion";
-import { Routes, Route, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
+import { Routes, Route } from "react-router-dom";
 import { MainLayout } from "./layouts/MainLayout";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
@@ -13,116 +13,36 @@ import { EducationPage } from "./pages/EducationPage";
 import { HobbyPage } from "./pages/HobbyPage";
 import { ContactPage } from "./pages/ContactPage";
 import { AdminPage } from "./pages/AdminPage";
-import { PageTransition } from "./components/effects";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { isVisiblePage } from "./config/content";
+
+const PAGES: { path: string; element: ReactNode }[] = [
+  { path: "/", element: <HomePage /> },
+  { path: "/about", element: <AboutPage /> },
+  { path: "/projects", element: <ProjectsPage /> },
+  { path: "/research", element: <ResearchPage /> },
+  { path: "/experience", element: <ExperiencePage /> },
+  { path: "/hackathons", element: <HackathonsPage /> },
+  { path: "/articles", element: <ArticlesPage /> },
+  { path: "/skills", element: <SkillsPage /> },
+  { path: "/education", element: <EducationPage /> },
+  { path: "/hobby", element: <HobbyPage /> },
+  { path: "/contact", element: <ContactPage /> },
+];
 
 export default function App() {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {/* Public routes with Navbar + Footer */}
-        <Route element={<MainLayout />}>
-          <Route
-            path="/"
-            element={
-              <PageTransition>
-                <HomePage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <PageTransition>
-                <AboutPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/projects"
-            element={
-              <PageTransition>
-                <ProjectsPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/research"
-            element={
-              <PageTransition>
-                <ResearchPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/experience"
-            element={
-              <PageTransition>
-                <ExperiencePage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/hackathons"
-            element={
-              <PageTransition>
-                <HackathonsPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/articles"
-            element={
-              <PageTransition>
-                <ArticlesPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/skills"
-            element={
-              <PageTransition>
-                <SkillsPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/education"
-            element={
-              <PageTransition>
-                <EducationPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/hobby"
-            element={
-              <PageTransition>
-                <HobbyPage />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <PageTransition>
-                <ContactPage />
-              </PageTransition>
-            }
-          />
-        </Route>
+    <Routes>
+      {/* Public routes with Navbar + Footer */}
+      <Route element={<MainLayout />}>
+        {PAGES.filter((page) => isVisiblePage(page.path)).map((page) => (
+          <Route key={page.path} path={page.path} element={page.element} />
+        ))}
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
 
-        {/* Admin route — standalone layout (no public navbar/footer) */}
-        <Route
-          path="/admin"
-          element={
-            <PageTransition>
-              <AdminPage />
-            </PageTransition>
-          }
-        />
-      </Routes>
-    </AnimatePresence>
+      {/* Admin route — standalone layout (no public navbar/footer) */}
+      <Route path="/admin" element={<AdminPage />} />
+    </Routes>
   );
 }

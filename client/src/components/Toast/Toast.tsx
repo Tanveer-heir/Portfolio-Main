@@ -5,27 +5,10 @@
    Provides success/error/info feedback to user.
    ============================================ */
 
-import { useState, useEffect, useCallback, createContext, useContext, type ReactNode } from 'react';
+import { useMemo, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ToastContext, type Toast, type ToastType } from './toast-context';
 import './Toast.css';
-
-/* ---- Types ---- */
-type ToastType = 'success' | 'error' | 'info';
-
-interface Toast {
-  id: string;
-  type: ToastType;
-  title: string;
-  message?: string;
-  duration?: number;
-}
-
-interface ToastContextValue {
-  addToast: (toast: Omit<Toast, 'id'>) => void;
-}
-
-/* ---- Context ---- */
-const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 
 /* ---- Provider ---- */
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -40,8 +23,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
+  const value = useMemo(() => ({ addToast }), [addToast]);
+
   return (
-    <ToastContext.Provider value={{ addToast }}>
+    <ToastContext.Provider value={value}>
       {children}
       <div className="toast-container" aria-live="polite">
         <AnimatePresence>
@@ -83,11 +68,4 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
       <button className="toast__close" onClick={() => onDismiss(toast.id)} aria-label="Dismiss">✕</button>
     </motion.div>
   );
-}
-
-/* ---- Hook ---- */
-export function useToast() {
-  const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error('useToast must be used within a ToastProvider');
-  return ctx;
 }

@@ -1,14 +1,19 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
 import { ProjectCard } from '../../components/ProjectCard';
-import { projects, sectionMeta } from '../../data/portfolio-data';
+import { projects, sectionMeta } from '../../config/content';
 import { staggerContainer, staggerItem } from '../../utils/motion';
 import './ProjectsSection.css';
 
-const FILTER_CATEGORIES = ['all', 'software', 'hardware', 'research', 'design'] as const;
+const FILTER_CATEGORIES = ['all', ...new Set(projects.map((project) => project.category))];
 
 export default function ProjectsSection() {
   const meta = sectionMeta.projects;
+  const [activeCategory, setActiveCategory] = useState('all');
+  const visibleProjects = projects.filter(
+    (project) => activeCategory === 'all' || project.category === activeCategory,
+  );
 
   return (
     <section className="projects section" id="projects-section">
@@ -24,8 +29,9 @@ export default function ProjectsSection() {
           {FILTER_CATEGORIES.map((cat) => (
             <button
               key={cat}
-              className="projects__filter-btn projects__filter-btn--active"
-              data-category={cat}
+              className={`projects__filter-btn ${cat === activeCategory ? 'projects__filter-btn--active' : ''}`}
+              aria-pressed={cat === activeCategory}
+              onClick={() => setActiveCategory(cat)}
             >
               {cat}
             </button>
@@ -40,7 +46,7 @@ export default function ProjectsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          {projects.map((project) => (
+          {visibleProjects.map((project) => (
             <motion.div key={project.id} variants={staggerItem}>
               <ProjectCard project={project} />
             </motion.div>

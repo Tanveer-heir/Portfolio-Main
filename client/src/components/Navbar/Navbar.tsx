@@ -1,7 +1,7 @@
 import { useState, useEffect, type MouseEvent as ReactMouseEvent } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { NAV_ITEMS } from "../../config/navigation";
+import { NAV_ITEMS, site } from "../../config/content";
 import "./Navbar.css";
 
 function MagneticLink({
@@ -54,19 +54,16 @@ function MagneticLink({
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  /* The drawer is tied to the page it was opened on, so it closes on navigation */
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const mobileOpen = openedOn === location.pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  /* Close mobile nav on route change */
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
 
   return (
     <nav
@@ -78,7 +75,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar__logo" id="nav-logo">
           <span className="navbar__logo-dot" aria-hidden="true" />
-          <span className="navbar__logo-text">Portfolio</span>
+          <span className="navbar__logo-text">{site.name}</span>
         </Link>
 
         {/* Desktop links */}
@@ -99,7 +96,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           className={`navbar__hamburger ${mobileOpen ? "navbar__hamburger--open" : ""}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setOpenedOn(mobileOpen ? null : location.pathname)}
           aria-expanded={mobileOpen}
           aria-label="Toggle navigation menu"
           id="nav-hamburger"

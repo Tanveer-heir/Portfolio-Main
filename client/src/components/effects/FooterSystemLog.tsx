@@ -1,22 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import { site } from "../../config/content";
 import "./FooterSystemLog.css";
 
-const LOG_LINES = [
-  "Uptime: 99.9%",
-  "Scanning hardware traces...",
-  "GIS layers synced.",
-  "Spatial index rebuilt.",
-  "Telemetry heartbeat nominal.",
-  "Auth channel encrypted.",
-  "Compiler cache warmed.",
-];
+const LOG_LINES = site.footer.terminalLines;
 
 export default function FooterSystemLog() {
+  const shouldReduceMotion = useReducedMotion();
   const [lines, setLines] = useState<string[]>(LOG_LINES.slice(0, 4));
   const frame = useRef(4);
   const viewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (shouldReduceMotion || LOG_LINES.length === 0) {
+      return undefined;
+    }
+
     const timer = setInterval(() => {
       const nextLine = LOG_LINES[frame.current % LOG_LINES.length];
       frame.current += 1;
@@ -24,7 +23,7 @@ export default function FooterSystemLog() {
     }, 1700);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -34,13 +33,12 @@ export default function FooterSystemLog() {
     viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
   }, [lines]);
 
+  if (LOG_LINES.length === 0) {
+    return null;
+  }
+
   return (
-    <div
-      className="footer-system-log glass"
-      role="log"
-      aria-live="polite"
-      aria-label="System status logs"
-    >
+    <div className="footer-system-log glass" aria-hidden="true">
       <div className="footer-system-log__head">terminal://status</div>
       <div className="footer-system-log__viewport" ref={viewportRef}>
         {lines.map((line, index) => (

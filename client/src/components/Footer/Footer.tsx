@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { NAV_ITEMS, SOCIAL_LINKS } from "../../config/navigation";
+import { NAV_ITEMS, SOCIAL_LINKS, site } from "../../config/content";
+import { assetUrl } from "../../utils/assets";
 import { FooterSystemLog } from "../effects";
 import "./Footer.css";
 
@@ -38,11 +39,7 @@ const SOCIAL_ICONS: Record<string, string> = {
   Email: "✉",
 };
 
-const BRAND_PILLS = [
-  { icon: "⌘", label: "Software" },
-  { icon: "⚡", label: "Hardware" },
-  { icon: "◈", label: "Geospatial" },
-];
+const affiliationLogo = assetUrl(site.affiliation?.image);
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -63,25 +60,25 @@ export default function Footer() {
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
               <span className="footer__logo-dot" aria-hidden="true" />
-              <span>Portfolio</span>
+              <span>{site.name}</span>
             </Link>
-            <p className="footer__tagline">Engineer · Maker · Researcher</p>
-            <p className="footer__tagline-sub">
-              Bridging software with the physical world.
-            </p>
+            <p className="footer__tagline">{site.tagline}</p>
+            <p className="footer__tagline-sub">{site.taglineDetail}</p>
 
             <div className="footer__brand-meta">
-              <figure className="footer__brand-logo-slot">
-                <img
-                  src="/images/plaksha.png"
-                  alt="University or organization logo"
-                  className="footer__brand-logo-image"
-                  loading="lazy"
-                />
-              </figure>
+              {affiliationLogo && (
+                <figure className="footer__brand-logo-slot">
+                  <img
+                    src={affiliationLogo}
+                    alt={site.affiliation?.alt}
+                    className="footer__brand-logo-image"
+                    loading="lazy"
+                  />
+                </figure>
+              )}
 
               <div className="footer__brand-pills" aria-label="Core domains">
-                {BRAND_PILLS.map((pill) => (
+                {site.footer.domains.map((pill) => (
                   <span key={pill.label} className="footer__brand-pill">
                     <span
                       className="footer__brand-pill-icon"
@@ -94,9 +91,11 @@ export default function Footer() {
                 ))}
               </div>
 
-              <blockquote className="footer__brand-quote">
-                Talk is cheap. Show me the code.
-              </blockquote>
+              {site.footer.quote && (
+                <blockquote className="footer__brand-quote">
+                  {site.footer.quote}
+                </blockquote>
+              )}
             </div>
           </div>
 
@@ -163,11 +162,11 @@ export default function Footer() {
         {/* Bottom: copyright + hidden admin link */}
         <div className="footer__bottom">
           <p className="footer__copyright">
-            &copy; {year} · Engineered with precision.
+            &copy; {year} {site.name}
           </p>
-          <p className="footer__tech-stack">
-            React · TypeScript · Vite · Firebase
-          </p>
+          {site.footer.techStack && (
+            <p className="footer__tech-stack">{site.footer.techStack}</p>
+          )}
           <Link
             to="/admin"
             className="footer__admin-link"

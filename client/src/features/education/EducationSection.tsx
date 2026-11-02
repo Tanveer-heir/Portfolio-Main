@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Card, CardBody } from '../../components/Card';
 import { SkillBadge } from '../../components/SkillBadge';
-import { education, sectionMeta } from '../../data/portfolio-data';
+import { education, sectionMeta } from '../../config/content';
+import { assetUrl } from '../../utils/assets';
 import { staggerContainer, staggerItem } from '../../utils/motion';
 import './EducationSection.css';
 
@@ -45,12 +46,20 @@ export default function EducationSection() {
                     </div>
                   </div>
 
+                  {edu.logo && (
+                    <img
+                      src={assetUrl(edu.logo)}
+                      alt=""
+                      className="education__logo"
+                      loading="lazy"
+                    />
+                  )}
                   <h3 className="education__institution">{edu.institution}</h3>
                   <p className="education__degree">
                     {edu.degree} — {edu.field}
                   </p>
-                  {edu.gpa && (
-                    <span className="education__gpa">{edu.gpa}</span>
+                  {edu.grade && (
+                    <span className="education__gpa">{edu.grade}</span>
                   )}
 
                   <ul className="education__highlights">

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
   onAuthStateChanged,
   signInWithPopup,
@@ -13,32 +7,34 @@ import {
   signOut as firebaseSignOut,
   type User,
 } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db, googleProvider } from '../config/firebase';
+import { AuthContext } from './auth-context';
 
-/* ---- Types ---- */
-interface AuthContextValue {
-  user: User | null;
-  loading: boolean;
-  isAdmin: boolean;
-  signInWithGoogle: () => Promise<void>;
-  signOut: () => Promise<void>;
-}
-
-/* Admin email from env — used to differentiate admin vs visitor terminals */
-const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || '';
-
-/* ---- Context ---- */
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-
-/* ---- Provider ---- */
+/* A user is an admin when an admins/{uid} document exists.
+   firestore.rules enforces the same check on the server. */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   /* Listen to auth state changes */
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setLoading(true);
+      let admin = false;
+
+      if (firebaseUser) {
+        try {
+          const adminDoc = await getDoc(doc(db, 'admins', firebaseUser.uid));
+          admin = adminDoc.exists();
+        } catch (error) {
+          console.error('Admin check failed:', error);
+        }
+      }
+
       setUser(firebaseUser);
+      setIsAdmin(admin);
       setLoading(false);
     });
     return unsubscribe;
@@ -56,17 +52,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       /* Try popup first — faster UX */
       await signInWithPopup(auth, googleProvider);
     } catch (error: unknown) {
-      const firebaseError = error as { code?: string };
-      /* If popup is blocked, fall back to redirect */
-      if (
-        firebaseError.code === 'auth/popup-blocked' ||
-        firebaseError.code === 'auth/popup-closed-by-user' ||
-        firebaseError.code === 'auth/cancelled-popup-request'
-      ) {
-        console.warn('Popup blocked, falling back to redirect…');
+      const { code } = error as { code?: string };
+      if (code === 'auth/popup-blocked') {
         await signInWithRedirect(auth, googleProvider);
-      } else {
-        console.error('Google sign-in failed:', error);
+      } else if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
+        throw error;
       }
     }
   };
@@ -79,18 +69,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const isAdmin = user?.email === ADMIN_EMAIL && ADMIN_EMAIL !== '';
-
   return (
     <AuthContext.Provider value={{ user, loading, isAdmin, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );
-}
-
-/* ---- Hook ---- */
-export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within an AuthProvider');
-  return ctx;
 }

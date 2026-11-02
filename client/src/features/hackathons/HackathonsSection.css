@@ -1,47 +1,22 @@
 /* ——— Hackathons Section ——— */
 
+/* Single column: the trace runs in the left margin, never across card text */
 .hackathons__bento {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
-}
-
-@media (min-width: 768px) {
-  .hackathons__bento {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-auto-rows: minmax(170px, auto);
-  }
 }
 
 .hackathons__bento-item {
   position: relative;
-  grid-column: span 12;
-}
-
-@media (min-width: 768px) {
-  .hackathons__bento-item--1,
-  .hackathons__bento-item--4 {
-    grid-column: span 7;
-  }
-
-  .hackathons__bento-item--2,
-  .hackathons__bento-item--3,
-  .hackathons__bento-item--5,
-  .hackathons__bento-item--6 {
-    grid-column: span 5;
-  }
-
-  .hackathons__bento-item--2,
-  .hackathons__bento-item--5 {
-    grid-row: span 2;
-  }
+  padding-left: var(--space-8);
 }
 
 .hackathons__node {
   position: absolute;
-  top: 18px;
-  left: 16px;
+  top: 24px;
+  left: 2px;
   width: 10px;
   height: 10px;
   border-radius: var(--radius-full);
@@ -137,4 +112,10 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-4);
+}
+
+.hackathons__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }

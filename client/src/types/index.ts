@@ -1,51 +1,68 @@
 /* ============================================
    TYPE DEFINITIONS — Portfolio Domain Models
    ============================================
-   Enhanced for Phase 6: Data Decoupling
-   - Geo-visualization fields for projects
-   - Constraint tracking for hackathons
-   - Physical engineering fields for hobbies
-   - Section metadata for centralized headings
+   The shape of every file in client/data.
+   Image and file fields hold paths relative to
+   client/data, or a full https:// link.
    ============================================ */
 
-// ——— Shared Primitives ———
+type Level = 'beginner' | 'intermediate' | 'advanced' | 'expert';
 
-export interface GeoPoint {
-  lat: number;
-  lng: number;
-  label?: string;
-}
+// ——— SITE ———
 
-export interface GalleryImage {
-  src: string;
-  alt: string;
-  caption?: string;
-  aspectRatio?: '1:1' | '4:3' | '16:9' | '3:2';
-}
-
-export interface StatItem {
-  value: string;
-  label: string;
+export interface SiteData {
+  name: string;
+  initials: string;
+  tagline: string;
+  taglineDetail: string;
+  pageTitle: string;
+  description: string;
+  url: string;
+  shareImage?: string;
+  social: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    email?: string;
+  };
+  affiliation?: { image?: string; alt: string };
+  footer: {
+    domains: { icon: string; label: string }[];
+    quote?: string;
+    techStack?: string;
+    terminalLines: string[];
+  };
 }
 
 // ——— HERO ———
 
 export interface HeroData {
   overline: string;
-  titleLines: string[];
-  titleAccent: string;
+  headline: string;
+  headlineLines: string[];
   subtitle: string;
-  ctaPrimary: { label: string; href: string };
-  ctaSecondary: { label: string; href: string };
+  buttons: { label: string; to: string }[];
 }
 
 // ——— ABOUT ———
 
 export interface AboutData {
-  initials: string;
+  photo?: string;
   lead: string;
   body: string[];
-  stats: StatItem[];
+  stats: { value: string; label: string }[];
+}
+
+// ——— SECTION HEADINGS ———
+
+export interface SectionText {
+  title: string;
+  subtitle: string;
+  align?: 'left' | 'center';
+}
+
+export interface SectionMeta extends SectionText {
+  label: string;
 }
 
 // ——— PROJECT ———
@@ -56,13 +73,11 @@ export interface Project {
   description: string;
   tags: string[];
   category: 'software' | 'hardware' | 'research' | 'design';
-  imageUrl?: string;
+  image?: string;
   liveUrl?: string;
   repoUrl?: string;
   featured?: boolean;
-  location?: GeoPoint;
-  coordinates?: [number, number];
-  scale?: 'micro' | 'local' | 'regional' | 'national' | 'global';
+  draft?: boolean;
 }
 
 // ——— RESEARCH ———
@@ -72,14 +87,12 @@ export interface ResearchPaper {
   title: string;
   abstract: string;
   authors: string[];
-  publicationDate: string;
-  journal?: string;
-  conference?: string;
-  doi?: string;
-  pdfUrl?: string;
+  year: string;
+  url?: string;
+  pdf?: string;
   tags: string[];
   status?: 'published' | 'preprint' | 'in-review' | 'working-paper';
-  citationCount?: number;
+  draft?: boolean;
 }
 
 // ——— ARTICLE ———
@@ -88,12 +101,12 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
-  content?: string;
   publishedAt: string;
-  readingTime: number;
+  readingTime?: number;
   tags: string[];
-  coverImageUrl?: string;
-  slug: string;
+  url?: string;
+  image?: string;
+  draft?: boolean;
 }
 
 // ——— HACKATHON ———
@@ -105,16 +118,15 @@ export interface Hackathon {
   projectTitle: string;
   description: string;
   date: string;
-  duration: string;
+  duration?: string;
   award?: string;
+  budget?: string;
+  url?: string;
   demoUrl?: string;
   repoUrl?: string;
-  teamSize?: number;
-  imageUrl?: string;
-  budget: string;
-  budgetAmount: number;
-  constraints: string[];
+  image?: string;
   tags: string[];
+  draft?: boolean;
 }
 
 // ——— EDUCATION ———
@@ -126,18 +138,18 @@ export interface Education {
   field: string;
   startYear: number;
   endYear?: number;
-  gpa?: string;
+  grade?: string;
   highlights: string[];
-  logoUrl?: string;
+  logo?: string;
+  draft?: boolean;
 }
 
 // ——— SKILL ———
 
 export interface Skill {
   name: string;
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
-  category: 'language' | 'framework' | 'tool' | 'hardware' | 'platform';
-  iconUrl?: string;
+  level?: Level;
+  warm?: boolean;
 }
 
 export interface SkillCategory {
@@ -152,14 +164,13 @@ export interface Experience {
   id: string;
   role: string;
   organization: string;
-  subtitle?: string;
-  type: 'professional' | 'academic' | 'volunteer';
+  url?: string;
   startDate: string;
   endDate?: string;
   description: string;
-  highlights: string[];
   tags: string[];
   accent?: boolean;
+  draft?: boolean;
 }
 
 // ——— HOBBY ———
@@ -169,12 +180,12 @@ export interface Hobby {
   title: string;
   description: string;
   category: 'build' | 'experiment' | 'craft' | 'exploration';
-  imageUrl?: string;
+  image?: string;
   tags: string[];
   materials: string[];
-  gallery: GalleryImage[];
-  difficulty?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  difficulty?: Level;
   buildTime?: string;
+  draft?: boolean;
 }
 
 // ——— NAVIGATION ———
@@ -188,39 +199,4 @@ export interface NavItem {
 export interface SocialLink {
   platform: string;
   url: string;
-  icon: string;
-}
-
-// ——— CONTACT ———
-
-export interface ContactFormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-// ——— SECTION METADATA ———
-
-export interface SectionMeta {
-  label: string;
-  title: string;
-  subtitle: string;
-  align?: 'left' | 'center';
-}
-
-// ——— MASTER DATA SHAPE ———
-
-export interface PortfolioData {
-  hero: HeroData;
-  about: AboutData;
-  sectionMeta: Record<string, SectionMeta>;
-  projects: Project[];
-  research: ResearchPaper[];
-  experience: Experience[];
-  hackathons: Hackathon[];
-  articles: Article[];
-  skills: SkillCategory[];
-  education: Education[];
-  hobbies: Hobby[];
 }

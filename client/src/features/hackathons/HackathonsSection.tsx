@@ -5,7 +5,8 @@ import { Card, CardHeader, CardBody, CardFooter } from "../../components/Card";
 import { SkillBadge } from "../../components/SkillBadge";
 import { Button } from "../../components/Button";
 import { LogicTrace, SpotlightCard } from "../../components/effects";
-import { hackathons, sectionMeta } from "../../data/portfolio-data";
+import { hackathons, sectionMeta } from "../../config/content";
+import { assetUrl } from "../../utils/assets";
 import { staggerContainer, staggerItem } from "../../utils/motion";
 import "./HackathonsSection.css";
 
@@ -35,11 +36,11 @@ export default function HackathonsSection() {
             nodeSelector=".hackathons__node"
           />
 
-          {hackathons.map((hack, index) => (
+          {hackathons.map((hack) => (
             <motion.div
               key={hack.id}
               variants={staggerItem}
-              className={`hackathons__bento-item hackathons__bento-item--${(index % 6) + 1}`}
+              className="hackathons__bento-item"
             >
               <span className="hackathons__node" aria-hidden="true" />
 
@@ -51,6 +52,14 @@ export default function HackathonsSection() {
                   className="hackathons__card"
                   spotlightBorder
                 >
+                  {hack.image && (
+                    <img
+                      src={assetUrl(hack.image)}
+                      alt={hack.projectTitle}
+                      className="hackathons__image"
+                      loading="lazy"
+                    />
+                  )}
                   <CardHeader>
                     <div className="hackathons__card-meta">
                       <span className="hackathons__event-name">
@@ -71,24 +80,28 @@ export default function HackathonsSection() {
                       {hack.description}
                     </p>
                     <div className="hackathons__details">
-                      <span className="hackathons__detail">
-                        <span
-                          className="hackathons__detail-icon"
-                          aria-hidden="true"
-                        >
-                          ⏱
+                      {hack.duration && (
+                        <span className="hackathons__detail">
+                          <span
+                            className="hackathons__detail-icon"
+                            aria-hidden="true"
+                          >
+                            ⏱
+                          </span>
+                          {hack.duration}
                         </span>
-                        {hack.duration}
-                      </span>
-                      <span className="hackathons__detail">
-                        <span
-                          className="hackathons__detail-icon"
-                          aria-hidden="true"
-                        >
-                          💰
+                      )}
+                      {hack.budget && (
+                        <span className="hackathons__detail">
+                          <span
+                            className="hackathons__detail-icon"
+                            aria-hidden="true"
+                          >
+                            💰
+                          </span>
+                          {hack.budget}
                         </span>
-                        {hack.budget}
-                      </span>
+                      )}
                     </div>
                     <div className="hackathons__tags">
                       {hack.tags.map((tag) => (
@@ -96,11 +109,25 @@ export default function HackathonsSection() {
                       ))}
                     </div>
                   </CardBody>
-                  <CardFooter>
-                    <Button variant="ghost" size="sm">
-                      View Details
-                    </Button>
-                  </CardFooter>
+                  {(hack.url || hack.demoUrl || hack.repoUrl) && (
+                    <CardFooter>
+                      {hack.url && (
+                        <Button variant="outline" size="sm" href={hack.url}>
+                          View Details
+                        </Button>
+                      )}
+                      {hack.demoUrl && (
+                        <Button variant="ghost" size="sm" href={hack.demoUrl}>
+                          Live Demo
+                        </Button>
+                      )}
+                      {hack.repoUrl && (
+                        <Button variant="ghost" size="sm" href={hack.repoUrl}>
+                          Source
+                        </Button>
+                      )}
+                    </CardFooter>
+                  )}
                 </Card>
               </SpotlightCard>
             </motion.div>

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "../../components/Button";
 import { DecryptText } from "../../components/effects";
-import { hero } from "../../data/portfolio-data";
+import { hero, heroButtons } from "../../config/content";
 import "./HeroSection.css";
 
 export default function HeroSection() {
@@ -50,14 +50,16 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.4 }}
         >
           <DecryptText
-            text={`${hero.titleLines[0]} ${hero.titleAccent}`}
+            text={hero.headline}
             className="hero__title-decrypt"
             triggerOnView
           />
-          <br />
-          one
-          <br />
-          {hero.titleLines[2]}
+          {hero.headlineLines.map((line) => (
+            <span key={line}>
+              <br />
+              {line}
+            </span>
+          ))}
         </motion.h1>
 
         <motion.p
@@ -75,12 +77,16 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          <Button variant="solid" size="lg">
-            {hero.ctaPrimary.label}
-          </Button>
-          <Button variant="outline" size="lg">
-            {hero.ctaSecondary.label}
-          </Button>
+          {heroButtons.map((button, index) => (
+            <Button
+              key={button.to}
+              variant={index === 0 ? "solid" : "outline"}
+              size="lg"
+              to={button.to}
+            >
+              {button.label}
+            </Button>
+          ))}
         </motion.div>
 
         {/* Scroll indicator */}

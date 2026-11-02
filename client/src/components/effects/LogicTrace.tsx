@@ -39,12 +39,17 @@ export default function LogicTrace({
         return;
       }
 
-      const rect = root.getBoundingClientRect();
+      // Offsets ignore transforms, so cards still sliding in don't skew the line
       const points = nodes
         .map((node) => {
-          const nRect = node.getBoundingClientRect();
-          const x = nRect.left - rect.left + nRect.width / 2;
-          const y = nRect.top - rect.top + nRect.height / 2;
+          let x = node.offsetWidth / 2;
+          let y = node.offsetHeight / 2;
+          let current: HTMLElement | null = node;
+          while (current && current !== root) {
+            x += current.offsetLeft;
+            y += current.offsetTop;
+            current = current.offsetParent as HTMLElement | null;
+          }
           return `${x},${y}`;
         })
         .join(" ");
@@ -53,8 +58,12 @@ export default function LogicTrace({
     };
 
     updatePath();
-    window.addEventListener("resize", updatePath);
-    return () => window.removeEventListener("resize", updatePath);
+    // Also re-measures when late fonts or images change the height of the cards
+    const observer = new ResizeObserver(updatePath);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    return () => observer.disconnect();
   }, [containerRef, nodeSelector]);
 
   return (

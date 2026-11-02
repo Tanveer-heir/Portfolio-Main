@@ -2,10 +2,36 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Public contact form — anyone can create a message
+    // An admin is a user with a document at admins/{their uid}.
+    // Those documents can only be created in the Firebase Console.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function isValidMessage() {
+      let data = request.resource.data;
+      return data.keys().hasOnly(['senderEmail', 'subject', 'message', 'timestamp', 'status'])
+        && data.keys().hasAll(['senderEmail', 'subject', 'message', 'timestamp', 'status'])
+        && data.senderEmail is string && data.senderEmail.size() <= 254
+        && data.senderEmail.matches('^[^@ ]+@[^@ ]+[.][^@ ]+$')
+        && data.subject is string && data.subject.size() > 0 && data.subject.size() <= 200
+        && data.message is string && data.message.size() >= 10 && data.message.size() <= 5000
+        && data.timestamp == request.time
+        && data.status == 'unread';
+    }
+
+    // A signed-in user may only check their own admin status
+    match /admins/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Public contact form — anyone can send a message, only admins can see it
     match /messages/{messageId} {
-      allow create: if true;
-      allow read, update, delete: if request.auth != null;
+      allow create: if isValidMessage();
+      allow read, delete: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
     }
 
     // Default deny for everything else

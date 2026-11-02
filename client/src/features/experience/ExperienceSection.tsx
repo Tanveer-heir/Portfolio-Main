@@ -4,7 +4,7 @@ import { SectionHeading } from "../../components/SectionHeading";
 import { TimelineItem } from "../../components/TimelineItem";
 import { SkillBadge } from "../../components/SkillBadge";
 import { LogicTrace } from "../../components/effects";
-import { experience, sectionMeta } from "../../data/portfolio-data";
+import { experience, sectionMeta } from "../../config/content";
 import { fadeInLeft } from "../../utils/motion";
 import "./ExperienceSection.css";
 
@@ -49,7 +49,8 @@ export default function ExperienceSection() {
                 <TimelineItem
                   year={displayYear(exp)}
                   title={exp.role}
-                  subtitle={exp.subtitle}
+                  subtitle={exp.organization}
+                  subtitleUrl={exp.url}
                   accent={exp.accent}
                 >
                   <p>{exp.description}</p>

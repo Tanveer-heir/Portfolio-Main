@@ -1,25 +1,31 @@
-# 🌐 Personal Portfolio Website
+# Personal Portfolio Website
 
-A fullstack monorepo personal portfolio website built with a **Layer-Based** architecture.
+Portfolio of Tanveer Singh, built with React, TypeScript, Vite and Firebase.
 
-## 📁 Project Structure
+**Live site:** https://portfolio-main-one-pi.vercel.app
+
+## Project structure
 
 ```
 website/
-├── client/          → React frontend
-├── server/          → Node.js / Express backend (optional)
-├── shared/          → Shared TypeScript types
-├── .gitignore
-├── README.md
-└── structure.md     → Architecture reference
+├── client/
+│   ├── data/     → all website content: text, links, pictures, PDFs
+│   ├── src/      → website code
+│   └── firestore.rules
+└── .github/      → automatic checks on every push
 ```
 
-See [`structure.md`](./structure.md) for the full folder reference and conventions.
+## Updating the website
 
-## 🚀 Getting Started
+Edit the files in [`client/data`](./client/data). Its [README](./client/data/README.md) explains
+each one. Pushing to `main` publishes the site through Vercel.
 
-> _Coming soon — project setup instructions will be added once dependencies are configured._
+## Running it locally
 
-## 📝 License
+```bash
+cd client
+npm install
+npm run dev
+```
 
-MIT
+See [`client/README.md`](./client/README.md) for the Firebase setup.

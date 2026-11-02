@@ -79,3 +79,10 @@
   color: var(--color-accent-primary);
   font-size: var(--text-sm);
 }
+
+.education__logo {
+  display: block;
+  height: 48px;
+  width: auto;
+  margin-bottom: var(--space-3);
+}

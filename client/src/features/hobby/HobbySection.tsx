@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Card, CardBody } from '../../components/Card';
 import { SkillBadge } from '../../components/SkillBadge';
-import { hobbies, sectionMeta } from '../../data/portfolio-data';
+import { hobbies, sectionMeta } from '../../config/content';
+import { assetUrl } from '../../utils/assets';
 import { staggerContainer, staggerItem } from '../../utils/motion';
 import './HobbySection.css';
 
@@ -40,14 +41,21 @@ export default function HobbySection() {
               className="hobby__item"
             >
               <Card variant="glass" hoverEffect className="hobby__card">
-                {/* Image placeholder — designed for high-res photos */}
-                <div className="hobby__image-area">
-                  <div className="hobby__image-placeholder">
-                    <span className="hobby__image-icon" aria-hidden="true">
-                      {CATEGORY_ICONS[hobby.category]}
-                    </span>
-                    <span className="hobby__image-label">Photo</span>
-                  </div>
+                <div className={`hobby__image-area ${hobby.image ? '' : 'hobby__image-area--empty'}`}>
+                  {hobby.image ? (
+                    <img
+                      src={assetUrl(hobby.image)}
+                      alt={hobby.title}
+                      className="hobby__image"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="hobby__image-placeholder">
+                      <span className="hobby__image-icon" aria-hidden="true">
+                        {CATEGORY_ICONS[hobby.category]}
+                      </span>
+                    </div>
+                  )}
                   <span className="hobby__category-badge">{hobby.category}</span>
                 </div>
 

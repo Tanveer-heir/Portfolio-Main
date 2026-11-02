@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./BootSequence.css";
 
@@ -7,11 +7,21 @@ const WIREFRAME_LINES = Array.from({ length: 7 }).map((_, index) => ({
   delay: index * 0.1,
 }));
 
+// Plays once per visit, not on every page change
+let hasBooted = false;
+
+const shouldSkip = () =>
+  hasBooted || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function BootSequence() {
   const [progress, setProgress] = useState(0);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(shouldSkip);
 
   useEffect(() => {
+    if (done) {
+      return undefined;
+    }
+
     const start = performance.now();
     let raf = 0;
 
@@ -21,6 +31,7 @@ export default function BootSequence() {
       setProgress(next);
 
       if (next >= 100) {
+        hasBooted = true;
         setDone(true);
       } else {
         raf = requestAnimationFrame(step);
@@ -29,9 +40,7 @@ export default function BootSequence() {
 
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const value = useMemo(() => `${Math.round(progress)}%`, [progress]);
+  }, [done]);
 
   return (
     <AnimatePresence>
@@ -50,7 +59,7 @@ export default function BootSequence() {
             />
           </div>
           <span className="boot-sequence__label">
-            Booting cinematic engine {value}
+            Booting cinematic engine {Math.round(progress)}%
           </span>
 
           <div className="boot-sequence__wireframes">

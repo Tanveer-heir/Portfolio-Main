@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 
 interface DecryptTextProps {
@@ -12,6 +12,8 @@ interface DecryptTextProps {
 
 const SYMBOLS = "0123456789ABCDEF<>-_[]{}=+*^?#";
 
+const randomSymbol = () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+
 export default function DecryptText({
   text,
   revealText,
@@ -22,30 +24,14 @@ export default function DecryptText({
 }: DecryptTextProps) {
   const shouldReduceMotion = useReducedMotion();
   const finalText = revealText ?? text;
-  const [output, setOutput] = useState(shouldReduceMotion ? finalText : "");
+  const [scrambled, setScrambled] = useState<string | null>(null);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { amount: 0.65, once });
-
-  const placeholders = useMemo(() => {
-    return text
-      .split("")
-      .map((char) =>
-        char === " "
-          ? " "
-          : SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)],
-      )
-      .join("");
-  }, [text]);
+  const shouldAnimate = !shouldReduceMotion && (!triggerOnView || isInView);
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      setOutput(finalText);
-      return;
-    }
-
-    if (triggerOnView && !isInView) {
-      setOutput(finalText);
-      return;
+    if (!shouldAnimate) {
+      return undefined;
     }
 
     let frame = 0;
@@ -55,44 +41,30 @@ export default function DecryptText({
       const progress = Math.min((now - start) / duration, 1);
       const revealCount = Math.floor(progress * finalText.length);
 
-      const next = finalText
-        .split("")
-        .map((char, index) => {
-          if (char === " ") {
-            return " ";
-          }
-
-          if (index < revealCount) {
-            return char;
-          }
-
-          return SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
-        })
-        .join("");
-
-      setOutput(next);
+      setScrambled(
+        finalText
+          .split("")
+          .map((char, index) =>
+            char === " " || index < revealCount ? char : randomSymbol(),
+          )
+          .join(""),
+      );
 
       if (progress < 1) {
         frame = requestAnimationFrame(tick);
       }
     };
 
-    setOutput(placeholders);
     frame = requestAnimationFrame(tick);
-
     return () => cancelAnimationFrame(frame);
-  }, [
-    duration,
-    finalText,
-    placeholders,
-    shouldReduceMotion,
-    triggerOnView,
-    isInView,
-  ]);
+  }, [duration, finalText, shouldAnimate]);
 
   return (
     <span ref={ref} className={className}>
-      {output}
+      <span className="sr-only">{finalText}</span>
+      <span aria-hidden="true">
+        {shouldAnimate && scrambled !== null ? scrambled : finalText}
+      </span>
     </span>
   );
 }

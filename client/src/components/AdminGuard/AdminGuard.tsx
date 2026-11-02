@@ -1,13 +1,15 @@
 /* ============================================
    AdminGuard — Role-Based Access Control
    ============================================
-   Wraps admin routes. Redirects non-admin users
-   to homepage. Shows login gate for unauthenticated.
+   Wraps admin routes. Shows a login gate when signed
+   out, and the User ID when signed in without access.
+   Data is protected on the server by firestore.rules.
    ============================================ */
 
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../providers/AuthProvider';
+import { useAuth } from '../../providers/auth-context';
+import { useToast } from '../Toast';
 import './AdminGuard.css';
 
 interface AdminGuardProps {
@@ -15,7 +17,17 @@ interface AdminGuardProps {
 }
 
 export default function AdminGuard({ children }: AdminGuardProps) {
-  const { user, loading, isAdmin, signInWithGoogle } = useAuth();
+  const { user, loading, isAdmin, signInWithGoogle, signOut } = useAuth();
+  const { addToast } = useToast();
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error('Google sign-in failed:', error);
+      addToast({ type: 'error', title: 'Sign-in failed', message: 'Please try again.' });
+    }
+  };
 
   /* Still loading auth state */
   if (loading) {
@@ -50,7 +62,7 @@ export default function AdminGuard({ children }: AdminGuardProps) {
           </div>
           <button
             className="btn btn--google btn--lg admin-guard__btn"
-            onClick={signInWithGoogle}
+            onClick={handleSignIn}
           >
             <svg className="btn__google-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
@@ -65,9 +77,24 @@ export default function AdminGuard({ children }: AdminGuardProps) {
     );
   }
 
-  /* Logged in but NOT admin — redirect home */
+  /* Logged in but NOT admin */
   if (!isAdmin) {
-    return <Navigate to="/" replace />;
+    return (
+      <div className="admin-guard">
+        <div className="admin-guard__card glass">
+          <h3 className="admin-guard__title">No admin access</h3>
+          <p className="admin-guard__subtitle">
+            This account is not an admin. Your User ID is <code>{user.uid}</code>
+          </p>
+          <button className="btn btn--ghost btn--md" onClick={signOut}>
+            Sign out
+          </button>
+          <Link to="/" className="btn btn--ghost btn--md">
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   /* Admin — render protected content */

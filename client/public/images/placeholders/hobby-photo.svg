@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
-  <title id="title">Hobby photo placeholder</title>
-  <desc id="desc">Replace with hobby photo.</desc>
-  <rect width="1200" height="900" fill="#121a2a"/>
-  <circle cx="420" cy="380" r="110" fill="none" stroke="#00e5ff" stroke-opacity="0.5" stroke-width="4"/>
-  <path d="M220 670l180-180 130 130 120-120 240 170" fill="none" stroke="#7cf6ff" stroke-width="6" stroke-linecap="round"/>
-  <text x="600" y="840" text-anchor="middle" fill="#8c95a8" font-family="JetBrains Mono, monospace" font-size="30" letter-spacing="5">HOBBY IMAGE</text>
-</svg>

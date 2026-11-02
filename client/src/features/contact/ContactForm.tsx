@@ -2,16 +2,17 @@
    Public Contact Form — No Auth Required
    ============================================
    Glassmorphic form that pushes to Firestore
-   `messages` collection. Toast on success/error.
+   `messages` collection. Success is only shown
+   once Firestore has confirmed the message.
    ============================================ */
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { db } from '../../config/firebase';
 import { SectionHeading } from '../../components/SectionHeading';
 import { Button } from '../../components/Button';
 import { useToast } from '../../components/Toast';
+import { sectionMeta, site } from '../../config/content';
+import { sendMessage } from './sendMessage';
 import './ContactForm.css';
 
 interface FormData {
@@ -73,27 +74,16 @@ export default function ContactForm() {
 
     setSubmitting(true);
     try {
-      /* Use Timestamp.now() instead of serverTimestamp() to avoid
-         the addDoc promise hanging when no listener is active */
-      const submitPromise = addDoc(collection(db, 'messages'), {
+      await sendMessage({
         senderEmail: form.email.trim(),
         subject: form.subject.trim(),
         message: form.message.trim(),
-        timestamp: Timestamp.now(),
-        status: 'unread',
       });
-
-      /* Safety timeout — if Firestore hangs, resolve after 8s */
-      const timeoutPromise = new Promise<void>((resolve) => {
-        setTimeout(() => resolve(), 8000);
-      });
-
-      await Promise.race([submitPromise, timeoutPromise]);
 
       addToast({
         type: 'success',
         title: 'Message sent!',
-        message: 'T.S. will get back to you soon.',
+        message: `${site.name} will get back to you soon.`,
       });
       setForm({ email: '', subject: '', message: '' });
       setTouched({});
@@ -103,8 +93,10 @@ export default function ContactForm() {
       console.error('Failed to send message:', error);
       addToast({
         type: 'error',
-        title: 'Failed to send message',
-        message: 'Please try again later.',
+        title: 'Your message was not sent',
+        message: site.social.email
+          ? `Please try again later, or email ${site.social.email}.`
+          : 'Please try again later.',
       });
     } finally {
       setSubmitting(false);
@@ -137,10 +129,10 @@ export default function ContactForm() {
     <section className="contact-form section" id="contact-form-section">
       <div className="container">
         <SectionHeading
-          label="✉"
-          title="Get in Touch"
-          subtitle="Have a question, collaboration idea, or just want to say hello? No login required."
-          align="center"
+          label={sectionMeta.contact.label}
+          title={sectionMeta.contact.title}
+          subtitle={sectionMeta.contact.subtitle}
+          align={sectionMeta.contact.align}
         />
 
         <motion.div

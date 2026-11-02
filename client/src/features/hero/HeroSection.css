@@ -165,4 +165,8 @@
     width: 300px;
     height: 300px;
   }
+
+  .hero__scroll-hint {
+    display: none;
+  }
 }

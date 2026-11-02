@@ -2,6 +2,7 @@ import { Card, CardHeader, CardBody, CardFooter } from "../Card";
 import { SkillBadge } from "../SkillBadge";
 import { Button } from "../Button";
 import { SpotlightCard } from "../effects";
+import { assetUrl } from "../../utils/assets";
 import type { Project } from "../../types";
 import "./ProjectCard.css";
 
@@ -17,6 +18,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     design: "◐",
   };
 
+  const image = assetUrl(project.image);
+
   return (
     <SpotlightCard>
       <Card
@@ -26,11 +29,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         spotlightBorder
         className="project-card"
       >
-        {/* Image placeholder area */}
         <div className="project-card__image">
-          <span className="project-card__category-icon" aria-hidden="true">
-            {categoryIcons[project.category]}
-          </span>
+          {image ? (
+            <img src={image} alt={project.title} loading="lazy" />
+          ) : (
+            <span className="project-card__category-icon" aria-hidden="true">
+              {categoryIcons[project.category]}
+            </span>
+          )}
           {project.featured && (
             <span className="project-card__featured-badge">Featured</span>
           )}
@@ -49,18 +55,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </CardBody>
 
-        <CardFooter>
-          {project.liveUrl && (
-            <Button variant="outline" size="sm">
-              Live Demo
-            </Button>
-          )}
-          {project.repoUrl && (
-            <Button variant="ghost" size="sm">
-              Source
-            </Button>
-          )}
-        </CardFooter>
+        {(project.liveUrl || project.repoUrl) && (
+          <CardFooter>
+            {project.liveUrl && (
+              <Button variant="outline" size="sm" href={project.liveUrl}>
+                Live Demo
+              </Button>
+            )}
+            {project.repoUrl && (
+              <Button variant="ghost" size="sm" href={project.repoUrl}>
+                Source
+              </Button>
+            )}
+          </CardFooter>
+        )}
       </Card>
     </SpotlightCard>
   );

@@ -21,6 +21,11 @@
   .hobby__item:nth-child(1) {
     grid-column: 1 / -1;
   }
+
+  /* With an even count, the last item would otherwise sit next to an empty cell */
+  .hobby__item:first-child:nth-last-child(even) ~ .hobby__item:last-child {
+    grid-column: 1 / -1;
+  }
 }
 
 .hobby__card {
@@ -36,6 +41,16 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.hobby__image-area--empty {
+  aspect-ratio: 4 / 1;
+}
+
+.hobby__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hobby__image-placeholder {
@@ -63,15 +78,6 @@
   font-size: var(--text-5xl);
   opacity: 0.3;
   user-select: none;
-}
-
-.hobby__image-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  opacity: 0.5;
 }
 
 .hobby__category-badge {

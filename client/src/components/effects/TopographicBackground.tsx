@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from "framer-motion";
 import "./TopographicBackground.css";
@@ -17,53 +19,49 @@ const TOPO_PATHS = [
   "M0,540 C140,500 280,580 440,530 C600,480 780,570 960,520 C1140,470 1260,550 1440,500",
 ];
 
+const MOUSE_SPRING = { stiffness: 40, damping: 20 };
+
 export default function TopographicBackground() {
   const shouldReduceMotion = useReducedMotion();
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const x = useSpring(mouseX, MOUSE_SPRING);
+  const springY = useSpring(mouseY, MOUSE_SPRING);
   const { scrollYProgress } = useScroll();
 
   const driftY = useTransform(scrollYProgress, [0, 1], [0, -140]);
   const driftOpacity = useTransform(scrollYProgress, [0, 0.9], [0.6, 0.25]);
+  const y = useTransform(
+    [driftY, springY],
+    ([drift, mouse]) => (drift as number) + (mouse as number),
+  );
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      return undefined;
+    }
+
     const onMove = (event: MouseEvent) => {
-      setMouse({
-        x: (event.clientX / window.innerWidth - 0.5) * 24,
-        y: (event.clientY / window.innerHeight - 0.5) * 18,
-      });
+      mouseX.set((event.clientX / window.innerWidth - 0.5) * 24);
+      mouseY.set((event.clientY / window.innerHeight - 0.5) * 18);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  const transition = useMemo(
-    () => ({
-      duration: 12,
-      repeat: shouldReduceMotion ? 0 : Infinity,
-      repeatType: "mirror" as const,
-      ease: "easeInOut" as const,
-    }),
-    [shouldReduceMotion],
-  );
+  }, [mouseX, mouseY, shouldReduceMotion]);
 
   return (
     <div className="topographic-bg" aria-hidden="true">
       <motion.div
         className="topographic-bg__mesh"
-        style={
-          shouldReduceMotion ? undefined : { y: driftY, opacity: driftOpacity }
-        }
-        animate={
-          shouldReduceMotion
-            ? undefined
-            : {
-                x: mouse.x,
-                y: mouse.y,
-                scale: [1, 1.012, 1],
-              }
-        }
-        transition={transition}
+        style={shouldReduceMotion ? undefined : { x, y, opacity: driftOpacity }}
+        animate={shouldReduceMotion ? undefined : { scale: [1, 1.012, 1] }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
       >
         <svg
           className="topographic-bg__svg"
