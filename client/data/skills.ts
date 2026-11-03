@@ -1,58 +1,29 @@
 // Your skills, grouped into categories.
-//   level: 'beginner', 'intermediate', 'advanced' or 'expert'. Controls the small colored dot.
+//   level: optional 'beginner', 'intermediate', 'advanced' or 'expert'. Adds a small colored dot.
 //   warm:  true shows the skill in orange instead of blue
-//
-// CONFIRM: this list was not written from your CV. Remove anything you would not want to be
-// asked about in an interview.
 import type { SkillCategory } from '../src/types';
+
+const names = (list: string[], warm = false) => list.map((name) => ({ name, warm }));
 
 export const skills: SkillCategory[] = [
   {
-    name: 'Languages',
+    name: 'Languages & Tools',
     icon: '⌘',
-    skills: [
-      { name: 'Python', level: 'expert' },
-      { name: 'C', level: 'advanced' },
-      { name: 'TypeScript', level: 'advanced' },
-      { name: 'JavaScript', level: 'advanced' },
-      { name: 'SQL', level: 'intermediate' },
-      { name: 'Rust', level: 'beginner' },
-    ],
+    skills: names(['Python', 'C/C++', 'SQL', 'Java', 'JavaScript', 'Git', 'Linux', 'Docker', 'GPU/HPC Training Pipelines']),
   },
   {
-    name: 'Frameworks & Libraries',
+    name: 'ML/DL & NLP',
     icon: '◈',
-    skills: [
-      { name: 'React', level: 'advanced' },
-      { name: 'FastAPI', level: 'expert' },
-      { name: 'Node.js', level: 'intermediate' },
-      { name: 'Framer Motion', level: 'intermediate' },
-      { name: 'GeoPandas', level: 'advanced' },
-      { name: 'Rasterio', level: 'expert' },
-    ],
+    skills: names(['PyTorch', 'TensorFlow', 'Hugging Face Transformers', 'scikit-learn', 'spaCy', 'sentence-transformers', 'Weak Supervision']),
   },
   {
-    name: 'Tools & Platforms',
+    name: 'Models & Retrieval',
     icon: '⚙',
-    skills: [
-      { name: 'Git', level: 'expert' },
-      { name: 'Docker', level: 'intermediate' },
-      { name: 'QGIS', level: 'advanced' },
-      { name: 'KiCad', level: 'advanced' },
-      { name: 'VS Code', level: 'expert' },
-      { name: 'Linux', level: 'advanced' },
-    ],
+    skills: names(['Mamba (SSMs)', 'RoBERTa', 'T5', 'Qwen', 'LSTM', 'n-gram LMs', 'mHuBERT-147', 'VideoMAE', 'FAISS', 'BM25', 'DPR', 'RAG']),
   },
   {
-    name: 'Hardware & Electronics',
+    name: 'Geospatial & Causal Inference',
     icon: '⚡',
-    skills: [
-      { name: 'Soldering', level: 'advanced', warm: true },
-      { name: 'PCB Design', level: 'advanced', warm: true },
-      { name: 'Embedded Systems', level: 'intermediate', warm: true },
-      { name: 'Mechanical Eng.', level: 'intermediate', warm: true },
-      { name: 'Oscilloscope', level: 'intermediate', warm: true },
-      { name: 'Perfboard Builds', level: 'expert', warm: true },
-    ],
+    skills: names(['QGIS/PyQGIS', 'Google Earth Engine', 'XGBoost', 'Random Forest', 'PSM', 'DiD', 'Double ML'], true),
   },
 ];

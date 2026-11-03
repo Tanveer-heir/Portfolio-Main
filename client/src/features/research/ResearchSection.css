@@ -50,11 +50,6 @@
 .research__abstract {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .research__tags {

@@ -4,39 +4,39 @@ import type { SectionText } from '../src/types';
 export const sections: Record<string, SectionText> = {
   about: {
     title: 'About Me',
-    subtitle: 'A student who bridges the gap between software programming and physical engineering.',
+    subtitle: 'A student researcher working across NLP, geospatial ML and causal inference.',
   },
   projects: {
     title: 'Projects',
-    subtitle: 'From code architecture and APIs to geographic data visualizations and physical builds.',
+    subtitle: 'Paper reproductions, research extensions and tools built from scratch.',
   },
   research: {
-    title: 'Research Papers',
-    subtitle: 'Work in geospatial analysis, embedded systems, and applied computer science.',
+    title: 'Publications',
+    subtitle: 'Papers on hallucination detection in code-mixed text and engineering communication training.',
   },
   experience: {
-    title: 'Experience',
-    subtitle: 'A timeline of professional, academic, and volunteer roles.',
+    title: 'Research Experience',
+    subtitle: 'Research roles across NLP, deepfake detection, urban heat risk and causal inference.',
   },
   hackathons: {
-    title: 'Hackathons',
-    subtitle: '24-hour sprints, building for the community and themes that prioritize inclusivity.',
+    title: 'Hackathons & Honors',
+    subtitle: 'Competition wins and selections.',
   },
   articles: {
     title: 'Articles',
-    subtitle: 'Technical writing on software, hardware, and everything in between.',
+    subtitle: 'Science communication in The Shillong Times and The Morung Express.',
   },
   skills: {
-    title: 'Skills',
-    subtitle: 'Proficiencies spanning software, hardware, and everything in between.',
+    title: 'Technical Skills',
+    subtitle: 'Languages, models and methods I work with.',
   },
   education: {
     title: 'Education',
-    subtitle: 'Current academic status, degrees, and relevant coursework.',
+    subtitle: 'Degree and school results.',
   },
   hobby: {
-    title: 'Hobby & Builds',
-    subtitle: 'Passion projects — hand-soldered circuits, physics experiments, and precision mechanical builds.',
+    title: 'Builds & Outreach',
+    subtitle: 'Hands-on projects outside my research.',
   },
   contact: {
     title: 'Get in Touch',

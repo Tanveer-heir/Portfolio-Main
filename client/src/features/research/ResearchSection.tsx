@@ -40,6 +40,7 @@ export default function ResearchSection() {
                   <CardHeader>
                     <div className="research__header-row">
                       <span className="research__year">
+                        {paper.venue && `${paper.venue} · `}
                         {paper.year}
                       </span>
                       {paper.status && (

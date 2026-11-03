@@ -44,11 +44,6 @@ pdf: 'files/my-paper.pdf',
 Add `draft: true` to an entry to hide it without deleting it. Pages with nothing to show disappear
 from the menu by themselves, and come back once they have a visible entry.
 
-## Lines marked CONFIRM
-
-These hold text that was not written from your real details, and it is visible on the website.
-Correct it or hide it, then delete the `CONFIRM` comment.
-
 ## Publishing
 
 1. Run `npm run dev` in the `client` folder and check the result at the address it prints.

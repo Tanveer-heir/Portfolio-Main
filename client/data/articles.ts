@@ -1,41 +1,40 @@
-// Your articles. Add the link to where each one is published (Medium, Dev.to, your blog...).
+// Your articles, newest first.
 //   url:   link to the full article. The title becomes clickable.
 //   image: a cover picture in data/images/articles, for example 'images/articles/raster.png'
 //   draft: true hides the article from the website.
-//
-// These entries have no published article behind them, so they stay hidden. To use one, add its
-// url and remove the draft line. The Articles page and menu link appear once one is visible.
 import type { Article } from '../src/types';
 
 export const articles: Article[] = [
   {
     id: '1',
-    draft: true,
-    title: 'Building a Full-Stack Dashboard with React & FastAPI',
-    excerpt: 'A walkthrough of architecting a real-time environmental monitoring dashboard from scratch...',
-    publishedAt: 'Mar 2025',
-    readingTime: 8,
-    tags: ['react', 'fastapi', 'tutorial'],
-    url: '',
+    title: 'A World Within a Forest: India’s Hidden Biodiversity Crisis',
+    excerpt: 'Why Northeast India is so rich in species, and what is putting that biodiversity at risk.',
+    publishedAt: '1 Apr 2026 · The Shillong Times',
+    tags: ['Biodiversity', 'Northeast India'],
+    url: 'https://theshillongtimes.com/2026/04/01/a-world-within-a-forest-indias-hidden-biodiversity-crisis/',
   },
   {
     id: '2',
-    draft: true,
-    title: 'Designing Custom PCBs for IoT Sensor Networks',
-    excerpt: 'From schematic capture in KiCad to hand-soldering perfboards — lessons from the field...',
-    publishedAt: 'Jan 2025',
-    readingTime: 12,
-    tags: ['hardware', 'KiCad', 'IoT'],
-    url: '',
+    title: 'Engineering the Clean Water',
+    excerpt: 'How data-driven algorithms can help water-treatment teams choose the right adsorbent for a contaminant and location.',
+    publishedAt: '6 Feb 2026 · The Morung Express',
+    tags: ['Algorithms', 'Clean Water'],
+    url: 'https://morungexpress.com/engineering-the-clean-water',
   },
   {
     id: '3',
-    draft: true,
-    title: 'Understanding Raster Analysis with Rasterio',
-    excerpt: 'Deep dive into zonal statistics, masking, and area calculations for geospatial raster data...',
-    publishedAt: 'Nov 2024',
-    readingTime: 6,
-    tags: ['python', 'geospatial', 'rasterio'],
-    url: '',
+    title: 'When AI Revives the Lost: The New Age of De-Extinction',
+    excerpt: 'How AI could help reconstruct ancient DNA, and the limits of bringing extinct species back.',
+    publishedAt: '4 Oct 2025 · The Shillong Times',
+    tags: ['AI', 'De-Extinction', 'Biodiversity'],
+    url: 'https://theshillongtimes.com/2025/10/04/when-ai-revives-the-lost-the-new-age-of-de-extinction/',
+  },
+  {
+    id: '4',
+    title: 'TinyML: The Small Technology Tackling the Biggest Climate Challenge',
+    excerpt: 'How running AI on low-power devices could cut the energy use and cost of climate-monitoring sensors.',
+    publishedAt: '3 Sep 2025 · The Morung Express',
+    tags: ['TinyML', 'Climate Tech'],
+    url: 'https://morungexpress.com/tinyml-the-small-technology-tackling-the-biggest-climate-challenge',
   },
 ];

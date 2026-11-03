@@ -4,13 +4,13 @@ import type { SiteData } from '../src/types';
 export const site: SiteData = {
   name: 'Tanveer Singh',
   initials: 'T.S.',
-  tagline: 'Engineer · Maker · Researcher',
-  taglineDetail: 'Bridging software with the physical world.',
+  tagline: 'AI Researcher · Engineer · Maker',
+  taglineDetail: 'Computer Science and AI at Plaksha University.',
 
   // Shown on Google and when someone shares your link.
-  pageTitle: 'Tanveer Singh — Engineer · Maker · Researcher',
+  pageTitle: 'Tanveer Singh — AI Researcher · Engineer · Maker',
   description:
-    'Portfolio of Tanveer Singh — bridging software programming with physical engineering. Fullstack developer, hardware tinkerer and researcher.',
+    'Tanveer Singh is a Computer Science and AI undergraduate at Plaksha University, researching NLP, misinformation, deepfake detection, geospatial ML and causal inference.',
   url: 'https://portfolio-main-one-pi.vercel.app',
   // Preview picture for shared links, 1200x630 works best. Example: 'images/profile/share.png'
   shareImage: '',
@@ -18,9 +18,9 @@ export const site: SiteData = {
   // Leave a link empty ('') to hide it from the footer.
   social: {
     github: 'https://github.com/Tanveer-heir',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/tanveer-singh-heir/',
     twitter: '',
-    email: '',
+    email: 'tanveer.singh.ug25@plaksha.edu.in',
   },
 
   // Logo in the footer. Remove the image value ('') to hide it.
@@ -31,19 +31,19 @@ export const site: SiteData = {
 
   footer: {
     domains: [
-      { icon: '⌘', label: 'Software' },
-      { icon: '⚡', label: 'Hardware' },
-      { icon: '◈', label: 'Geospatial' },
+      { icon: '⌘', label: 'NLP' },
+      { icon: '◈', label: 'Geospatial ML' },
+      { icon: '⚡', label: 'Causal Inference' },
     ],
     quote: 'Talk is cheap. Show me the code.',
     techStack: 'React · TypeScript · Vite · Firebase',
     // The scrolling terminal box in the footer. It is decoration only: use [] to hide it.
     terminalLines: [
-      'Scanning hardware traces...',
-      'Warming up the soldering iron...',
-      'Loading GIS layers...',
-      'Rebuilding spatial index...',
-      'Compiling firmware...',
+      'Probing hidden states...',
+      'Fusing satellite sources...',
+      'Matching waterbodies to controls...',
+      'Tokenizing code-mixed text...',
+      'Training on the GPU cluster...',
       'Pushing to main...',
     ],
   },

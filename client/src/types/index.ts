@@ -87,6 +87,7 @@ export interface ResearchPaper {
   title: string;
   abstract: string;
   authors: string[];
+  venue?: string;
   year: string;
   url?: string;
   pdf?: string;
@@ -138,6 +139,7 @@ export interface Education {
   field: string;
   startYear: number;
   endYear?: number;
+  endLabel?: string;
   grade?: string;
   highlights: string[];
   logo?: string;

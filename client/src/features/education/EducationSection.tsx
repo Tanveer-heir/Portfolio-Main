@@ -38,7 +38,7 @@ export default function EducationSection() {
                   <div className="education__card-header">
                     <div>
                       <span className="education__years">
-                        {edu.startYear} — {edu.endYear ?? 'Present'}
+                        {edu.startYear} — {edu.endYear ?? edu.endLabel ?? 'Present'}
                       </span>
                       {!edu.endYear && (
                         <SkillBadge name="Current" variant="accent" />
