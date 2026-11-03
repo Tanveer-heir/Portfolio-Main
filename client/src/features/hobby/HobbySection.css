@@ -26,6 +26,12 @@
   .hobby__item:first-child:nth-last-child(even) ~ .hobby__item:last-child {
     grid-column: 1 / -1;
   }
+
+  /* Full-width cards use a wide picture so it doesn't fill the whole screen */
+  .hobby__item:first-child .hobby__image-area,
+  .hobby__item:first-child:nth-last-child(even) ~ .hobby__item:last-child .hobby__image-area {
+    aspect-ratio: 8 / 3;
+  }
 }
 
 .hobby__card {
@@ -38,7 +44,7 @@
 .hobby__image-area {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }

@@ -12,6 +12,7 @@ const CATEGORY_ICONS: Record<string, string> = {
   experiment: '🔬',
   craft: '✂️',
   exploration: '🧭',
+  reading: '📚',
 };
 
 export default function HobbySection() {

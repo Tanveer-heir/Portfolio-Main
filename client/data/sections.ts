@@ -35,8 +35,8 @@ export const sections: Record<string, SectionText> = {
     subtitle: 'Degree and school results.',
   },
   hobby: {
-    title: 'Builds & Outreach',
-    subtitle: 'Hands-on projects outside my research.',
+    title: 'Hobbies & Builds',
+    subtitle: 'What I make and enjoy outside my research.',
   },
   contact: {
     title: 'Get in Touch',

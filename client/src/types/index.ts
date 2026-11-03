@@ -181,7 +181,7 @@ export interface Hobby {
   id: string;
   title: string;
   description: string;
-  category: 'build' | 'experiment' | 'craft' | 'exploration';
+  category: 'build' | 'experiment' | 'craft' | 'exploration' | 'reading';
   image?: string;
   tags: string[];
   materials: string[];
