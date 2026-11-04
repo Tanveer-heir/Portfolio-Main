@@ -41,7 +41,7 @@ function siteMeta(): Plugin {
       this.emitFile({
         type: 'asset',
         fileName: 'robots.txt',
-        source: `User-agent: *\nDisallow: /admin\n\nSitemap: ${site.url}/sitemap.xml\n`,
+        source: `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`,
       })
       if (site.shareImage && shareImageName) {
         this.emitFile({
@@ -57,6 +57,4 @@ function siteMeta(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), siteMeta()],
-  // The largest file is Firebase, which only the admin page downloads
-  build: { chunkSizeWarningLimit: 650 },
 })

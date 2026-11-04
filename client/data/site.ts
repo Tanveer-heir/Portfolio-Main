@@ -37,7 +37,7 @@ export const site: SiteData = {
       { icon: '⚡', label: 'Causal Inference' },
     ],
     quote: 'Talk is cheap. Show me the code.',
-    techStack: 'React · TypeScript · Vite · Firebase',
+    techStack: 'React · TypeScript · Vite',
     // The scrolling terminal box in the footer. It is decoration only: use [] to hide it.
     terminalLines: [
       'Probing hidden states...',

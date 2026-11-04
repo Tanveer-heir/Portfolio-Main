@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^12.19.0",
     "framer-motion": "^12.43.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -29,8 +28,5 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5"
-  },
-  "overrides": {
-    "@grpc/grpc-js": "^1.14.7"
   }
 }

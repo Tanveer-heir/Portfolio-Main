@@ -160,7 +160,7 @@ export default function Footer() {
           <div className="footer__divider-line" />
         </div>
 
-        {/* Bottom: copyright + hidden admin link */}
+        {/* Bottom: copyright */}
         <div className="footer__bottom">
           <p className="footer__copyright">
             &copy; {year} {site.name}
@@ -168,14 +168,6 @@ export default function Footer() {
           {site.footer.techStack && (
             <p className="footer__tech-stack">{site.footer.techStack}</p>
           )}
-          <Link
-            to="/admin"
-            className="footer__admin-link"
-            aria-label="Admin Portal"
-            title="Admin Terminal"
-          >
-            ◈
-          </Link>
         </div>
       </div>
     </footer>

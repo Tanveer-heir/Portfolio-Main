@@ -11,7 +11,6 @@ import { ArticlesPage } from "./pages/ArticlesPage";
 import { SkillsPage } from "./pages/SkillsPage";
 import { EducationPage } from "./pages/EducationPage";
 import { HobbyPage } from "./pages/HobbyPage";
-import { AdminPage } from "./pages/AdminPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { isVisiblePage } from "./config/content";
 
@@ -31,16 +30,12 @@ const PAGES: { path: string; element: ReactNode }[] = [
 export default function App() {
   return (
     <Routes>
-      {/* Public routes with Navbar + Footer */}
       <Route element={<MainLayout />}>
         {PAGES.filter((page) => isVisiblePage(page.path)).map((page) => (
           <Route key={page.path} path={page.path} element={page.element} />
         ))}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
-
-      {/* Admin route — standalone layout (no public navbar/footer) */}
-      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }

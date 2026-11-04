@@ -1,6 +1,6 @@
 # Personal Portfolio Website
 
-Portfolio of Tanveer Singh, built with React, TypeScript, Vite and Firebase.
+Portfolio of Tanveer Singh, built with React, TypeScript and Vite.
 
 **Live site:** https://portfolio-main-one-pi.vercel.app
 
@@ -10,8 +10,7 @@ Portfolio of Tanveer Singh, built with React, TypeScript, Vite and Firebase.
 website/
 ├── client/
 │   ├── data/     → all website content: text, links, pictures, PDFs
-│   ├── src/      → website code
-│   └── firestore.rules
+│   └── src/      → website code
 └── .github/      → automatic checks on every push
 ```
 
@@ -27,5 +26,3 @@ cd client
 npm install
 npm run dev
 ```
-
-See [`client/README.md`](./client/README.md) for the Firebase setup.

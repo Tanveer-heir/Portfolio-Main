@@ -388,29 +388,6 @@
   letter-spacing: var(--tracking-wider);
 }
 
-/* ——— Hidden Admin Portal Link ——— */
-
-.footer__admin-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
-  color: var(--color-text-tertiary);
-  opacity: 0.6;
-  text-decoration: none;
-  transition: all var(--duration-normal) var(--ease-out-quart);
-}
-
-.footer__admin-link:hover {
-  opacity: 1;
-  color: var(--color-accent-primary);
-  text-shadow: 0 0 12px var(--color-accent-primary);
-  background: rgba(0, 229, 255, 0.06);
-}
-
 /* ——— Reduced Motion ——— */
 
 @media (prefers-reduced-motion: reduce) {
