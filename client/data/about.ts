@@ -3,7 +3,7 @@ import type { AboutData } from '../src/types';
 
 export const about: AboutData = {
   // Your photo, for example 'images/profile/me.jpg'. Your initials show until you add one.
-  photo: '',
+  photo: 'images/profile/profile.jpeg',
   lead: "I'm a Computer Science and AI undergraduate at Plaksha University, working across **natural language processing** and **geospatial machine learning**.",
   body: [
     'My research spans hallucination detection in code-mixed Hinglish, crisis misinformation on Reddit, multimodal deepfake detection for Indic speech, temporal knowledge graphs, urban heat risk, and causal inference from satellite data, with advisors at IIT Madras, IIT Delhi and IVCEE.',
