@@ -11,7 +11,6 @@ import { ArticlesPage } from "./pages/ArticlesPage";
 import { SkillsPage } from "./pages/SkillsPage";
 import { EducationPage } from "./pages/EducationPage";
 import { HobbyPage } from "./pages/HobbyPage";
-import { ContactPage } from "./pages/ContactPage";
 import { AdminPage } from "./pages/AdminPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { isVisiblePage } from "./config/content";
@@ -27,7 +26,6 @@ const PAGES: { path: string; element: ReactNode }[] = [
   { path: "/skills", element: <SkillsPage /> },
   { path: "/education", element: <EducationPage /> },
   { path: "/hobby", element: <HobbyPage /> },
-  { path: "/contact", element: <ContactPage /> },
 ];
 
 export default function App() {

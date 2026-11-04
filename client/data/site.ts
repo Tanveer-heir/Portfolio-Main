@@ -19,8 +19,9 @@ export const site: SiteData = {
   social: {
     github: 'https://github.com/Tanveer-heir',
     linkedin: 'https://www.linkedin.com/in/tanveer-singh-heir/',
-    twitter: '',
-    email: 'tanveer.singh.ug25@plaksha.edu.in',
+    instagram: 'https://www.instagram.com/heirtanveer/',
+    gmail: 'tanveerheir68@gmail.com',
+    outlook: 'tanveer.singh.ug25@plaksha.edu.in',
   },
 
   // Logo in the footer. Remove the image value ('') to hide it.

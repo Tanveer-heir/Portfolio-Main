@@ -166,7 +166,7 @@ export default function AdminDashboard() {
             <span className="admin-empty__icon">✉</span>
             <h4>No messages yet</h4>
             <p>
-              Messages from the public contact form will appear here in
+              Messages saved from the old contact form will appear here in
               real-time.
             </p>
           </div>

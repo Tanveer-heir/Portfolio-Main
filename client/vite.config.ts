@@ -57,6 +57,6 @@ function siteMeta(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), siteMeta()],
-  // The largest file is Firebase, which only the contact form and admin page download
+  // The largest file is Firebase, which only the admin page downloads
   build: { chunkSizeWarningLimit: 650 },
 })

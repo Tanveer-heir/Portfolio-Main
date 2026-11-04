@@ -22,8 +22,9 @@ export interface SiteData {
   social: {
     github?: string;
     linkedin?: string;
-    twitter?: string;
-    email?: string;
+    instagram?: string;
+    gmail?: string;
+    outlook?: string;
   };
   affiliation?: { image?: string; alt: string };
   footer: {

@@ -35,8 +35,9 @@ const magneticHover = {
 const SOCIAL_ICONS: Record<string, string> = {
   GitHub: "⟨/⟩",
   LinkedIn: "in",
-  Twitter: "𝕏",
-  Email: "✉",
+  Instagram: "◎",
+  Gmail: "G",
+  Outlook: "O",
 };
 
 const affiliationLogo = assetUrl(site.affiliation?.image);

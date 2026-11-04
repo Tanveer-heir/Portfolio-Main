@@ -43,7 +43,6 @@ const PAGES: (NavItem & { section?: string; count?: number })[] = [
   { label: 'Skills', href: '/skills', id: 'nav-skills', section: 'skills', count: skills.length },
   { label: 'Education', href: '/education', id: 'nav-education', section: 'education', count: education.length },
   { label: 'Hobby', href: '/hobby', id: 'nav-hobby', section: 'hobby', count: hobbies.length },
-  { label: 'Contact', href: '/contact', id: 'nav-contact' },
 ];
 
 const visiblePages = PAGES.filter((page) => page.count !== 0);
@@ -56,9 +55,7 @@ export const heroButtons = heroData.buttons.filter((button) => isVisiblePage(but
 
 // ——— Section headings, numbered in menu order ———
 
-export const sectionMeta: Record<string, SectionMeta> = {
-  contact: { ...sections.contact, label: '✉' },
-};
+export const sectionMeta: Record<string, SectionMeta> = {};
 
 visiblePages
   .filter((page) => page.section)
@@ -71,13 +68,14 @@ visiblePages
 
 // ——— Social links: an empty link is left out ———
 
-const email = site.social.email ? `mailto:${site.social.email}` : '';
+const mailto = (address?: string) => (address ? `mailto:${address}` : '');
 
 export const SOCIAL_LINKS: SocialLink[] = [
   { platform: 'GitHub', url: site.social.github ?? '' },
   { platform: 'LinkedIn', url: site.social.linkedin ?? '' },
-  { platform: 'Twitter', url: site.social.twitter ?? '' },
-  { platform: 'Email', url: email },
+  { platform: 'Instagram', url: site.social.instagram ?? '' },
+  { platform: 'Gmail', url: mailto(site.social.gmail) },
+  { platform: 'Outlook', url: mailto(site.social.outlook) },
 ].filter((link) => link.url);
 
 export { site, about, skills };

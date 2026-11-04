@@ -8,7 +8,7 @@ Cinematic engineering portfolio built with React, TypeScript, Framer Motion, and
 
 - React 19, TypeScript, Vite
 - Framer Motion, React Router
-- Firebase Auth + Firestore (contact form and admin inbox only)
+- Firebase Auth + Firestore (admin inbox only)
 
 ## Project Structure
 
@@ -34,13 +34,13 @@ npm run build     # type-check and build for production
 npm run preview   # serve the production build
 ```
 
-Avoid `npm audit fix`: it can install a second copy of `@firebase/app`, which crashes the contact
-form and admin page with "Component auth has not been registered yet". Update packages by name
+Avoid `npm audit fix`: it can install a second copy of `@firebase/app`, which crashes the admin
+page with "Component auth has not been registered yet". Update packages by name
 instead, then check that `npm ls @firebase/app` shows only one version.
 
 ## Firebase Setup
 
-The site works without Firebase, except for the contact form and `/admin`.
+The site works without Firebase, except for `/admin`.
 
 1. Copy `.env.example` to `.env.local` and fill in the values from the Firebase Console.
 2. Add the same values in Vercel under Project > Settings > Environment Variables, then redeploy.

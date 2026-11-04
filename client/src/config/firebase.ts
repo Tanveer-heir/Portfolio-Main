@@ -3,7 +3,7 @@
    ============================================
    Values come from .env.local on your computer
    and from the Environment Variables in Vercel.
-   Only the contact form and admin page load this.
+   Only the admin page loads this.
    ============================================ */
 
 import { initializeApp } from 'firebase/app';
@@ -27,7 +27,7 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-// Firestore — for storing contact messages
+// Firestore — for reading saved messages
 export const db = getFirestore(app);
 
 export default app;
